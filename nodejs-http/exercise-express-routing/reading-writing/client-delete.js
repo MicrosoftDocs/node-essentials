@@ -1,13 +1,14 @@
 const http = require('http');
 
-const data = JSON.stringify({
+const productToDelete = {
   id: 1
-})
+}
+const data = JSON.stringify(productToDelete)
 
 const options = {
   hostname: 'localhost',
   port: 3000,
-  path: '/products',
+  path: `/products/${productToDelete.id}`,
   method: 'DELETE',
   headers: {
     'Content-Type': 'application/json',
