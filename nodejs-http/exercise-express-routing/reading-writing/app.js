@@ -22,4 +22,6 @@ app.delete('/products/:id', function (req, res) {
 app.get('/products', (req, res) => {
   // implement
 })
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))
   ```
