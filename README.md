@@ -1,4 +1,4 @@
-# Beginner's Series to Node.js
+# Node essentials
 
 > This repository contains the source code for tutorials proposed in the [Node.js LEARN path](https://docs.microsoft.com/learn/paths/build-javascript-applications-nodejs/?WT.mc_id=nodebeginner-github-cxa) and the [Beginner's video Series to Node.js](https://channel9.msdn.com/Series/Beginners-Series-to-NodeJS?WT.mc_id=nodebeginner-github-cxa).
 
