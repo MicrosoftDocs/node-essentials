@@ -6,7 +6,7 @@
 
 Learning any new technology is a time-consuming process where it's easy to get lost. This is why we created this series of practical, and focused modules about Node.js for beginners so you can get up to speed.
 
-You'll find all the source code used in the [Learn modules](https://docs.microsoft.com/learn/paths/build-javascript-applications-nodejs/?WT.mc_id=nodebeginner-github-cxa) and [videos](ttps://channel9.msdn.com/Series/Beginners-Series-to-NodeJS?WT.mc_id=nodebeginner-github-cxa) to help you during your learning journey.
+You'll find all the source code used in the [Learn modules](https://docs.microsoft.com/learn/paths/build-javascript-applications-nodejs/?WT.mc_id=nodebeginner-github-cxa) and [videos](https://channel9.msdn.com/Series/Beginners-Series-to-NodeJS?WT.mc_id=nodebeginner-github-cxa) to help you during your learning journey.
 
 The full banking API source code shown in the Express videos can be found here: [WebDev for Beginners - Bank project](https://github.com/WebDev-Beginners/bank-project/tree/main/api)
 
