@@ -1,10 +1,22 @@
 const express = require("express");
 const app = express();
+const path = require("path");
+function isAuthorized(req, res, next) {
+  const auth = req.headers.authorization;
+  if (auth === "secretpassword") {
+    next();
+  } else {
+    res.status(401);
+    res.send("Not permitted");
+  }
+}
 const port = 3000;
 
-app.get("/", (req, res) => res.send("Hello World!"));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "/index.html"));
+});
 
-app.get("/users", (req, res) => {
+app.get("/users", isAuthorized, (req, res) => {
   res.json([
     {
       id: 1,
