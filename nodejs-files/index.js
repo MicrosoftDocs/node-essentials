@@ -21,15 +21,18 @@ async function findFiles(folderName, result) {
     console.log(`item =`, item);
     if (path.extname(item.name) === ".json") {
       const path = `${folderName}/${item.name}`;
-      console.log(`path`, path);
+      // console.log(`path`, path);
       result.push(path);
     } else {
       // this is a folder, so call this method again and pass in the path to the folder
-      console.log(`🚀 findFiles`);
-      await findFiles(path.join(folderName, item.name), result);
+      // console.log(`🚀 findFiles`);
+      // 递归
+      const temp = await findFiles(path.join(folderName, item.name), result);
+      result.concat(temp);
     }
   });
   console.log(`result`, result);
+  // js return setTimeout return value https://www.cnblogs.com/xgqfrms/p/16806941.html
   // return result;
   return Promise.resolve(result);
 }
