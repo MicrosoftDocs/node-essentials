@@ -1,8 +1,13 @@
-const fs = require("fs").promises;
-const path = require("path");
+// const fs = require("fs").promises;
+// const path = require("path");
 
-const items = await fs.readdir("stores");
-console.log(items); 
+import fs from "node:fs/promises";
+import path from "node:path";
+
+(async () => {
+  const items = await fs.readdir("stores");
+  console.log(`✅ items =\n`, items); 
+})();
 
 const items = await fs.readdir("stores", { withFileTypes: true });
 for (let item of items) {
@@ -10,11 +15,12 @@ for (let item of items) {
   console.log(`${item.name}: ${type}`);
 }
 
-function findFiles(folderName) {
+async function findFiles(folderName) {
   const items = await fs.readdir(folderName, { withFileTypes: true });
   items.forEach((item) => {
     if (path.extname(item.name) === ".json") {
-      console.log(`Found file: ${item.name} in folder: ${folderName}`);
+      // console.log(`Found file: ${item.name} in folder: ${folderName}`);
+      console.log(`Found file in folder: ${folderName}/${item.name}.json`);
     } else {
       // this is a folder, so call this method again and pass in
       // the path to the folder

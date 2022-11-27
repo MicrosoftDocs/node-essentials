@@ -1,0 +1,9 @@
+{
+  "name": "es2022-top-level-await",
+  "type": "module",
+  "description": "This package will be treated as an ES module.",
+  "version": "1.0",
+  "main": "index.js",
+  "author": "xgqfrms",
+  "license": "MIT"
+}
