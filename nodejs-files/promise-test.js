@@ -1,6 +1,6 @@
 
-// import fs from "node:fs/promises";
-import fs from "node:fs";
+// import fs from "node:fs";
+import fs from "node:fs/promises";
 
 import path from "node:path";
 
@@ -12,32 +12,53 @@ console.log(`✅ path =`, path.join(__dirname));
 // ✅ path = /Users/xgqfrms-mm/Documents/github/node-essentials/nodejs-files
 
 
+// (async () => {
+//   const items = await fs.readdir("stores");
+//   // console.log(`✅ items =`, items);
+//   // ✅ items = [ '201', '202', '2022', '203', '204', 'file.ts' ]
+//   for (const item of items) {
+//     // console.log(`✅ item =`, item);
+//   }
+//   // ✅ item = 201
+//   // ✅ item = 202
+//   // ✅ item = 2022
+//   // ✅ item = 203
+//   // ✅ item = 204
+//   // ✅ item = file.ts
+// })();
+
 (async () => {
   const options = {
     encoding: 'utf8',
     withFileTypes: true,
   };
-  const callback = (err, files) => {
-    console.log(`❌ err, files =`, err);
-    console.log(`🗂️ files =`,files);
-    // ❌ err, files = null
-    // 🗂️ files = [
-    //   Dirent { name: '201', [Symbol(type)]: 2 },
-    //   Dirent { name: '202', [Symbol(type)]: 2 },
-    //   Dirent { name: '2022', [Symbol(type)]: 2 },
-    //   Dirent { name: '203', [Symbol(type)]: 2 },
-    //   Dirent { name: '204', [Symbol(type)]: 2 },
-    //   Dirent { name: 'file.ts', [Symbol(type)]: 1 }
-    // ]
+  const files = await fs.readdir("stores", options);
+  // console.log(`❌ err, files =`, err);
+  console.log(`🗂️ files =`, files);
+  // 🗂️ files = [
+  //   Dirent { name: '201', [Symbol(type)]: 2 },
+  //   Dirent { name: '202', [Symbol(type)]: 2 },
+  //   Dirent { name: '2022', [Symbol(type)]: 2 },
+  //   Dirent { name: '203', [Symbol(type)]: 2 },
+  //   Dirent { name: '204', [Symbol(type)]: 2 },
+  //   Dirent { name: 'file.ts', [Symbol(type)]: 1 }
+  // ]
+  for (let item of files) {
+    const type = item.isDirectory() ? "folder" : "file";
+    console.log(`✅ name = ${item.name}, type =${type}`);
+    // ✅ name = 201, type =folder
+    // ✅ name = 202, type =folder
+    // ✅ name = 2022, type =folder
+    // ✅ name = 203, type =folder
+    // ✅ name = 204, type =folder
+    // ✅ name = file.ts, type =file
   }
-  fs.readdir("stores", options, callback);
-  // fs.readdir("stores", options, (err, files) => callback(err, files));
 })();
 
 
 /* 
 
-// ✅ callback function
+// callback ❌
 
 fs.readdir(path[, options], callback)
 
@@ -56,7 +77,8 @@ https://man7.org/linux/man-pages/man3/readdir.3.html
 https://nodejs.org/api/fs.html#class-fsdirent
 
 
-// promise ❌ no callback
+
+// ✅ promise
 
 fsPromises.readdir(path[, options])
 
