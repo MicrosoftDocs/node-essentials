@@ -1,42 +1,72 @@
-// const fs = require("fs").promises;
-// const path = require("path");
-
 import fs from "node:fs/promises";
 import path from "node:path";
 
-// (async () => {
-//   const items = await fs.readdir("stores");
-//   console.log(`✅ items =\n`, items); 
-// })();
-
-// const items = await fs.readdir("stores", { withFileTypes: true });
-// for (let item of items) {
-//   const type = item.isDirectory() ? "folder" : "file";
-//   console.log(`${item.name}: ${type}`);
-// }
-
 async function findFiles(folderName, result) {
+  let promiseFlag = Promise.resolve(true);
   const items = await fs.readdir(folderName, { withFileTypes: true });
   items.forEach(async (item) => {
+    promiseFlag = Promise.resolve(true);
     console.log(`item =`, item);
-    if (path.extname(item.name) === ".json") {
+    // console.log(`item.isDirectory() =`, item.isDirectory());
+    // console.log(`item.isFile() =`, item.isFile());
+    const name = path.extname(item.name);
+    // console.log(`name =`, name);
+    // console.log(`typeof name, type =`, typeof name, name === '' ? '🗂️ folder' : '🗒️ file');
+    // if (name === ".json" || name === ".ts") {
+    if (name !== '') {
       const path = `${folderName}/${item.name}`;
-      // console.log(`path`, path);
       result.push(path);
     } else {
-      // this is a folder, so call this method again and pass in the path to the folder
-      // console.log(`🚀 findFiles`);
+      promiseFlag = Promise.resolve(false);
+      const newFolderName = path.join(folderName, item.name);
       // 递归
-      const temp = await findFiles(path.join(folderName, item.name), result);
-      result.concat(temp);
+      await findFiles(newFolderName, result);
+      // const temp = await findFiles(newFolderName, result);
+      // result = result.concat(temp);
     }
   });
   console.log(`result`, result);
-  // js return setTimeout return value https://www.cnblogs.com/xgqfrms/p/16806941.html
-  // return result;
-  return Promise.resolve(result);
+  if(await promiseFlag) {
+    return result;
+  }
 }
 
 
-const result = await findFiles("stores", []);
-console.log(`✅ result =`, result);
+// const result = [];
+let result = [];
+await findFiles("stores", result);
+console.log(`❌ result =`, result);
+
+/* 
+
+$ node ./index.js
+item = Dirent { name: '201', [Symbol(type)]: 2 } true
+name = 
+item = Dirent { name: '202', [Symbol(type)]: 2 } true
+name = 
+item = Dirent { name: '2022', [Symbol(type)]: 2 } true
+name = 
+item = Dirent { name: '203', [Symbol(type)]: 2 } true
+name = 
+item = Dirent { name: '204', [Symbol(type)]: 2 } true
+name = 
+item = Dirent { name: 'file.ts', [Symbol(type)]: 1 } false
+name = .ts
+❌ result = [ 'stores/file.ts' ]
+item = Dirent { name: 'sales.json', [Symbol(type)]: 1 } false
+name = .json
+item = Dirent { name: 'sales.json', [Symbol(type)]: 1 } false
+name = .json
+item = Dirent { name: '11', [Symbol(type)]: 2 } true
+name = 
+item = Dirent { name: 'sales.json', [Symbol(type)]: 1 } false
+name = .json
+item = Dirent { name: 'sales.json', [Symbol(type)]: 1 } false
+name = .json
+item = Dirent { name: '27', [Symbol(type)]: 2 } true
+name = 
+item = Dirent { name: 'sales.json', [Symbol(type)]: 1 } false
+name = .json
+
+
+*/
