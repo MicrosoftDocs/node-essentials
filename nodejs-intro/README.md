@@ -15,3 +15,7 @@ node callback.js
 ```
 
 ![Callback sample](./resources/nodejs-intro-01.gif)
+
+## Any issues or doubts?
+
+If you have any problems or doubts related to the code, feel free to open an **[issue](https://github.com/MicrosoftDocs/node-essentials/issues)** indicating the problem or doubt.
