@@ -1,6 +1,16 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/"
+    directory: "nodejs-intro"
+  - package-ecosystem: "npm"
+    directory: "../node-dependencies/5-exercise-dependency"
+  - package-ecosystem: "npm"
+    directory: "../nodejs-dependencies/7-exercise-dependency-management"    
+  - package-ecosystem: "npm"
+    directory: "../nodejs-http/exercise-express-middleware"    
+  - package-ecosystem: "npm"
+    directory: "../nodejs-http/exercise-express-routing/parameters"   
+  - package-ecosystem: "npm"
+    directory: "../nodejs-http/exercise-express-routing/reading-writing 
     schedule:
       interval: "daily"
