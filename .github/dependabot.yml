@@ -5,22 +5,22 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "npm"
-    directory: "../node-dependencies/5-exercise-dependency"
+    directory: "node-dependencies/5-exercise-dependency"
     schedule:
       interval: "daily"
   - package-ecosystem: "npm"
-    directory: "../nodejs-dependencies/7-exercise-dependency-management"
+    directory: "nodejs-dependencies/7-exercise-dependency-management"
     schedule:
       interval: "daily"
   - package-ecosystem: "npm"
-    directory: "../nodejs-http/exercise-express-middleware"
+    directory: "nodejs-http/exercise-express-middleware"
     schedule:
       interval: "daily"
   - package-ecosystem: "npm"
-    directory: "../nodejs-http/exercise-express-routing/parameters"
+    directory: "nodejs-http/exercise-express-routing/parameters"
     schedule:
       interval: "daily"
   - package-ecosystem: "npm"
-    directory: "../nodejs-http/exercise-express-routing/reading-writing"
+    directory: "nodejs-http/exercise-express-routing/reading-writing"
     schedule:
       interval: "daily"
