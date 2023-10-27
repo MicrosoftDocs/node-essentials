@@ -1,16 +1,16 @@
-# Node Essentials
+# Node essentials
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/MicrosoftDocs/node-essentials)
 
 [![Node.Js Learn Path](/resources/nodejs-learn-path.png)](https://learn.microsoft.com/training/paths/build-javascript-applications-nodejs/?WT.mc_id=javascript-111027-gllemos)
 
-> This repository contains the source code for tutorials proposed in the [Node.js Learning Path](https://docs.microsoft.com/learn/paths/build-javascript-applications-nodejs/?WT.mc_id=nodebeginner-github-cxa) and the [Beginner's video Series to Node.js](https://channel9.msdn.com/Series/Beginners-Series-to-NodeJS??WT.mc_id=javascript-111027-gllemos).
+> This repository contains the source code for tutorials proposed in the [Node.js Learning Path](https://docs.microsoft.com/learn/paths/build-javascript-applications-nodejs/?WT.mc_id=nodebeginner-github-cxa) and the [Beginner's video Series to Node.js](https://channel9.msdn.com/Series/Beginners-Series-to-NodeJS?WT.mc_id=javascript-111027-gllemos).
 
 ## 🎯 Overview
 
 Learning any new technology is a time-consuming process where it's easy to get lost. This is why we created this series of practical, and focused modules about Node.js for beginners so you can get up to speed.
 
-You'll find all the source code used in the [Learn modules](https://docs.microsoft.com/learn/paths/build-javascript-applications-nodejs/??WT.mc_id=javascript-111027-gllemos) and [videos](https://channel9.msdn.com/Series/Beginners-Series-to-NodeJS?WT.mc_id=javascript-111027-gllemos) to help you during your learning journey.
+You'll find all the source code used in the [Learn modules](https://docs.microsoft.com/learn/paths/build-javascript-applications-nodejs/?WT.mc_id=javascript-111027-gllemos) and [videos](https://channel9.msdn.com/Series/Beginners-Series-to-NodeJS?WT.mc_id=javascript-111027-gllemos) to help you during your learning journey.
 
 The full banking API source code shown in the Express videos can be found here: [WebDev for Beginners - Bank project](https://github.com/WebDev-Beginners/bank-project/tree/main/api)
 
