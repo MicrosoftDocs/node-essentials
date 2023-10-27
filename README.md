@@ -1,31 +1,40 @@
 # Node essentials
 
-> This repository contains the source code for tutorials proposed in the [Node.js LEARN path](https://docs.microsoft.com/learn/paths/build-javascript-applications-nodejs/?WT.mc_id=nodebeginner-github-cxa) and the [Beginner's video Series to Node.js](https://channel9.msdn.com/Series/Beginners-Series-to-NodeJS?WT.mc_id=nodebeginner-github-cxa).
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/MicrosoftDocs/node-essentials)
 
-## Overview
+[![Node.Js Learn Path](/resources/nodejs-learn-path.png)](https://learn.microsoft.com/training/paths/build-javascript-applications-nodejs/?WT.mc_id=javascript-111027-gllemos)
+
+> This repository contains the source code for tutorials proposed in the [Node.js Learning Path](https://docs.microsoft.com/learn/paths/build-javascript-applications-nodejs/?WT.mc_id=nodebeginner-github-cxa) and the [Beginner's video Series to Node.js](https://channel9.msdn.com/Series/Beginners-Series-to-NodeJS?WT.mc_id=javascript-111027-gllemos).
+
+## 🎯 Overview
 
 Learning any new technology is a time-consuming process where it's easy to get lost. This is why we created this series of practical, and focused modules about Node.js for beginners so you can get up to speed.
 
-You'll find all the source code used in the [Learn modules](https://docs.microsoft.com/learn/paths/build-javascript-applications-nodejs/?WT.mc_id=nodebeginner-github-cxa) and [videos](https://channel9.msdn.com/Series/Beginners-Series-to-NodeJS?WT.mc_id=nodebeginner-github-cxa) to help you during your learning journey.
+You'll find all the source code used in the [Learn modules](https://docs.microsoft.com/learn/paths/build-javascript-applications-nodejs/?WT.mc_id=javascript-111027-gllemos) and [videos](https://channel9.msdn.com/Series/Beginners-Series-to-NodeJS?WT.mc_id=javascript-111027-gllemos) to help you during your learning journey.
 
 The full banking API source code shown in the Express videos can be found here: [WebDev for Beginners - Bank project](https://github.com/WebDev-Beginners/bank-project/tree/main/api)
 
-And if you need to learn or improve your JavaScript skills, take a look at the [Beginner's video Series to JavaScript](https://channel9.msdn.com/Shows/Beginners-Series-to-JavaScript?WT.mc_id=nodebeginner-github-cxa).
+And if you need to learn or improve your JavaScript skills, take a look at the [Beginner's video Series to JavaScript](https://channel9.msdn.com/Shows/Beginners-Series-to-JavaScript?WT.mc_id=javascript-111027-gllemos).
 
-## Next steps
+## 📚 Next steps
 
 Because learning is a never-ending journey, we want to help you as much as we can to get you ready for what's coming next. You'll find here a great collection of resources you can use to build your knowledge.
 
-- [Build a Node.js app for Azure Cosmos DB in Visual Studio Code](https://docs.microsoft.com/learn/modules/build-node-cosmos-app-vscode/?WT.mc_id=nodebeginner-github-cxa)
-- [Automate Node.js deployments with Azure Pipelines](https://docs.microsoft.com/learn/modules/deploy-nodejs/?WT.mc_id=nodebeginner-github-cxa)
-- [Refactor Node.js and Express APIs to serverless APIs with Azure Functions](https://docs.microsoft.com/learn/modules/shift-nodejs-express-apis-serverless/?WT.mc_id=nodebeginner-github-cxa)
-- [Build and run a web application with the MEAN stack on an Azure Linux virtual machine](https://docs.microsoft.com/learn/modules/build-a-web-app-with-mean-on-a-linux-vm/?WT.mc_id=nodebeginner-github-cxa)
-- [Publish an Angular, React, Svelte, or Vue JavaScript app with Azure Static Web Apps](https://docs.microsoft.com/learn/modules/publish-app-service-static-web-app-api/?WT.mc_id=nodebeginner-github-cxa)
-- [Quickstart: Create an image classification project with the Custom Vision client library](https://docs.microsoft.com/azure/cognitive-services/custom-vision-service/quickstarts/image-classification?WT.mc_id=nodebeginner-github-cxa)
-- [Create a bot with the Bot Framework SDK for JavaScript](https://docs.microsoft.com/azure/bot-service/javascript/bot-builder-javascript-quickstart?WT.mc_id=nodebeginner-github-cxa)
+- ✅ **[Build a Node.js app for Azure Cosmos DB in Visual Studio Code](https://docs.microsoft.com/learn/modules/build-node-cosmos-app-vscode/?WT.mc_id=javascript-111027-gllemos)**
 
+- ✅ **[Automate Node.js deployments with Azure Pipelines](https://docs.microsoft.com/learn/modules/deploy-nodejs/?WT.mc_id=javascript-111027-gllemos)**
 
-## Contributing
+- ✅ **[Refactor Node.js and Express APIs to serverless APIs with Azure Functions](https://docs.microsoft.com/learn/modules/shift-nodejs-express-apis-serverless/?WT.mc_id=javascript-111027-gllemos)**
+
+- ✅ **[Build and run a web application with the MEAN stack on an Azure Linux virtual machine](https://docs.microsoft.com/learn/modules/build-a-web-app-with-mean-on-a-linux-vm/?WT.mc_id=javascript-111027-gllemos)**
+
+- ✅ **[Publish an Angular, React, Svelte, or Vue JavaScript app with Azure Static Web Apps](https://docs.microsoft.com/learn/modules/publish-app-service-static-web-app-api/?WT.mc_id=javascript-111027-gllemos)**
+
+- ✅ **[Quickstart: Create an image classification project with the Custom Vision client library](https://docs.microsoft.com/azure/cognitive-services/custom-vision-service/quickstarts/image-classification?WT.mc_id=javascript-111027-gllemos)**
+
+- ✅ **[Create a bot with the Bot Framework SDK for JavaScript](https://docs.microsoft.com/azure/bot-service/javascript/bot-builder-javascript-quickstart?WT.mc_id=javascript-111027-gllemos)**
+
+## 💻 Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
@@ -39,7 +48,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
-## Legal Notices
+## ⚖️Legal Notices
 
 Microsoft and any contributors grant you a license to the Microsoft documentation and other content
 in this repository under the [Creative Commons Attribution 4.0 International Public License](https://creativecommons.org/licenses/by/4.0/legalcode),

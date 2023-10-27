@@ -2,7 +2,7 @@
 
 nvm_install_script=https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh
 NVM_DIR="$HOME/.nvm"
-NVM_NODE_VERSION=14
+NVM_NODE_VERSION=18
 
 if [ ! -d "$HOME/.nvm" ]; then
     echo "> Downloading NVM..."
