@@ -12,3 +12,5 @@ fs.readFile(filePath, 'utf8', (error, data) => {
         console.log('Done!');
     }
 });
+
+console.log('Im the last line of the file');
