@@ -27,5 +27,5 @@ jobs:
       run: |
         cd nodejs-intro
         npm install
-        npm format
-        npm lint
+        npm run format
+        npm run lint
