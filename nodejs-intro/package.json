@@ -4,7 +4,9 @@
   "description": "a simple code sample for the Introduction to Node.js Course",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ./3-how-nodejs-works/*.js --fix",
+    "format": "prettier ./3-how-nodejs-works/*.js --write"
   },
   "keywords": [
     "javascript",
@@ -17,6 +19,9 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^8"
+    "eslint": "^8.52.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "prettier": "3.0.3"
   }
 }
