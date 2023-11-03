@@ -8,7 +8,7 @@ const filePath = './file.txt';
 async function readFileAsync() {
   try {
     // `await` before the async method
-    const data = await fs.readFile(filePath, 'utf8');
+    const data = await fs.readFile(filePath, 'utf-8');
     console.log(data);
     console.log('Done!');
   } catch (error) {
