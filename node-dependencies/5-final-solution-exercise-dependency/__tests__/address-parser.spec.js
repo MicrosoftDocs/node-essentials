@@ -1,14 +1,12 @@
-const { parse } = require('../address-parser');
+const { addressParser } = require('../address-parser');
 
 describe('Address Parser', () => {
-    describe('Address parser', () => {
-        test('should parse correctly', () => {
-            expect(parse("I want to to order: 3 books to address: 112 street city here is my payment info: cardnumber")
-            ).toEqual({
-                order: "3 books",
-                address: "112 street city",
-                payment: "cardnumber",
-            });
-        })
+    test('should parse correctly', () => {
+        expect(addressParser("I want to to order: 3 books to address: 112 street city here is my payment info: cardnumber")
+        ).toEqual({
+            order: "3 books",
+            address: "112 street city",
+            payment: "cardnumber",
+        });
     })
 })
