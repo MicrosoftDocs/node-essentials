@@ -8,5 +8,5 @@ describe('Address Parser', () => {
             address: "112 street city",
             payment: "cardnumber",
         });
-    })
-})
+    });
+});
