@@ -1,3 +1,12 @@
+---
+page_type: sample
+name: Build JavaScript applications with Node.js
+languages:
+- javascript
+products:
+- azure
+- vs-code
+---
 # Node essentials
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/MicrosoftDocs/node-essentials)
