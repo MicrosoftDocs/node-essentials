@@ -4,9 +4,18 @@
   "description": "",
   "main": "address-parser.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ./5-final-solution-exercise-dependency/*.js --fix",
+    "format": "prettier ./5-final-solution-exercise-dependency/*.js --write"
   },
-  "keywords": [],
+  "keywords": [
+    "javascript",
+    "nodejs",
+    "azure",
+    "mslearning",
+    "microsoft-learn",
+    "tutorial"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
