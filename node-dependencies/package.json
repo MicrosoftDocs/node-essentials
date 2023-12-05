@@ -1,0 +1,29 @@
+{
+  "name": "node-dependencies",
+  "version": "1.0.0",
+  "description": "a simple code sample for the Introduction to Node.js Course",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest ./5-final-solution-exercise-dependency",
+    "lint": "eslint ./5-final-solution-exercise-dependency/*.js --fix",
+    "format": "prettier ./5-final-solution-exercise-dependency/*.js --write"
+  },
+  "keywords": [
+    "javascript",
+    "nodejs",
+    "azure",
+    "mslearning",
+    "microsoft-learn",
+    "tutorial"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.23.3",
+    "eslint": "^8.54.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "prettier": "3.1.0",
+    "jest": "^29.7.0"
+  }
+}

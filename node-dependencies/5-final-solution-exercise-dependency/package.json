@@ -4,9 +4,7 @@
   "description": "a simple code sample teaching how to use some packages from npm",
   "main": "address-parser.js",
   "scripts": {
-    "test": "jest",
-    "lint": "eslint ./5-final-solution-exercise-dependency/*.js --fix",
-    "format": "prettier ./5-final-solution-exercise-dependency/*.js --write"
+    "test": "jest"
   },
   "keywords": [
     "javascript",
@@ -19,11 +17,6 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@babel/eslint-parser": "^7.23.3",
-    "eslint": "^8.55.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.29.0",
-    "jest": "^29.7.0",
-    "prettier": "^3.1.0"
+    "jest": "^29.7.0"
   }
 }

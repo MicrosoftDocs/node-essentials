@@ -8,9 +8,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "api",
-    "database"
+    "javascript",
+    "nodejs",
+    "azure",
+    "mslearning",
+    "microsoft-learn",
+    "tutorial"
   ],
   "author": "",
-  "license": "ISC"
+  "license": "MIT"
 }
