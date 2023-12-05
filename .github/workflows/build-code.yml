@@ -29,3 +29,10 @@ jobs:
         npm install
         npm run format
         npm run lint
+    - name: Module 3 - node-dependencies
+      run: |
+        cd node-dependencies
+        npm install
+        npm run format
+        npm run lint
+        npm test
