@@ -31,7 +31,7 @@ jobs:
         npm run lint
     - name: Module 3 - node-dependencies
       run: |
-        cd node-dependencies/5-final-solution-exercise-dependency
+        cd node-dependencies
         npm install
         npm run format
         npm run lint
