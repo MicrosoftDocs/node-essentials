@@ -2,44 +2,50 @@ const fs = require("fs").promises;
 const path = require("path");
 
 async function calculateSalesTotal(salesFiles) {
+  
+  // Final sales total
   let salesTotal = 0;
-  // loop over each file path in the salesFiles array
+  
+  // (1) Tterates over the `salesFiles` array.
   for (file of salesFiles) {
-    // read the file and parse the contents as JSON
-    const data = JSON.parse(await fs.readFile(file));
-    // Add the amount in the data.total field to the salesTotal variable
+    
+    // (2) Reads the file.
+    const fileContents = await fs.readFile(file)
+
+    // (3) Parses the content as JSON.
+    const data = JSON.parse(fileContents);
+
+    // (4) Increments the `salesTotal` variable with the `total` value from the file.
     salesTotal += data.total;
   }
   return salesTotal;
 }
 
 async function findSalesFiles(folderName) {
-  // this array will hold sales files as they are found
-  let salesFiles = [];
 
-  async function findFiles(folderName) {
-    // read all the items in the current folder
-    const items = await fs.readdir(folderName, { withFileTypes: true });
+  // (1) Add an array at the top, to hold the paths to all the sales files that the program finds.
+  let results = [];
 
-    // iterate over each found item
-    for (item of items) {
-      // if the item is a directory, it will need to be searched
-      if (item.isDirectory()) {
-        // call this method recursively, appending the folder name to make a new path
-        await findFiles(path.join(folderName, item.name));
-      } else {
-        // Make sure the discovered file is a .json file
-        if (path.extname(item.name) === ".json") {
-          // store the file path in the salesFiles array
-          await salesFiles.push(path.join(folderName, item.name));
-        }
-      }
+  // (2) Read the currentFolder with the `readdir` method. 
+  const items = await fs.readdir(folderName, { withFileTypes: true });
+
+  // (3) Add a block to loop over each item returned from the `readdir` function using the asynchronous `for...of` loop. 
+  for (const item of items) {
+
+    // (4) Add an `if` statement to determine if the item is a file or a directory. 
+    if (item.isDirectory()) {
+
+      // (5) If the item is a directory, _resursively call the function `findSalesFiles` again, passing in the path to the item. 
+      const resultsReturned = await findSalesFiles(path.join(folderName, item.name));
+      results = results.concat(resultsReturned);
+    } else {
+      // (6) If it's not a directory, add a check to make sure the item name matches *sales.json*.
+      if (path.extname(item.name) === ".json")
+        results.push(`${folderName}/${item.name}`);
     }
   }
 
-  await findFiles(folderName);
-
-  return salesFiles;
+  return results;
 }
 
 async function main() {
