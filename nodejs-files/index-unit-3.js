@@ -1,3 +1,7 @@
+// To debug in Codespaces or dev container, use
+// index-unit-5.js which has the __dirname and path.join needed
+// to resolve the path correctly.
+
 const path = require("path");
 const fs = require("fs").promises;
 
@@ -6,10 +10,8 @@ async function findSalesFiles(folderName) {
   // (1) Add an array at the top, to hold the paths to all the sales files that the program finds.
   let results = [];
 
-  const relativePathToFolder = path.join(__dirname, folderName);
-
   // (2) Read the currentFolder with the `readdir` method. 
-  const items = await fs.readdir(relativePathToFolder, { withFileTypes: true });
+  const items = await fs.readdir(folderName, { withFileTypes: true });
 
   // (3) Add a block to loop over each item returned from the `readdir` function using the asynchronous `for...of` loop. 
   for (const item of items) {
