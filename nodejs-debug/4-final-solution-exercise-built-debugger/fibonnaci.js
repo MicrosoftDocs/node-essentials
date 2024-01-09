@@ -3,12 +3,6 @@ function fibonacci(n) {
     let n2 = 1;
     let sum = 0;
   
-    const json = {
-      n1,
-      n2,
-      sum,
-    };
-
     for (let i = 2; i <= n; i++) {
       sum = n1 + n2;
       n1 = n2;

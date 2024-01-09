@@ -29,10 +29,18 @@ jobs:
         npm install
         npm run format
         npm run lint
-    - name: Module 3 - node-dependencies
+    - name: Module 2 - node-dependencies
       run: |
         cd node-dependencies
         npm install
         npm run format
         npm run lint
         npm test
+    - name: Module 3 - nodejs-debug
+      run: |
+        cd node-dependencies
+        npm install
+        npm run format
+        npm run lint
+        npm test
+    

@@ -9,8 +9,14 @@ function setExchangeRate(rate, sourceCurrency, targetCurrency) {
     rates[targetCurrency] = {};
   }
 
-  rates[sourceCurrency][targetCurrency] = rate;
-  rates[targetCurrency][sourceCurrency] = 1 / rate;
+  for (const currency in rates) {
+    if (currency !== targetCurrency) {
+      // Use a pivot rate for currencies that don't have the direct conversion rate
+      const pivotRate = currency === sourceCurrency ? 1 : rates[currency][sourceCurrency];
+      rates[currency][targetCurrency] = rate * pivotRate;
+      rates[targetCurrency][currency] = 1 / (rate * pivotRate);
+    }
+  }
 }
 
 function convertToCurrency(value, sourceCurrency, targetCurrency) {
@@ -29,7 +35,7 @@ function printForeignValues(value, sourceCurrency) {
     if (targetCurrency !== sourceCurrency) {
       const convertedValue = convertToCurrency(value, sourceCurrency, targetCurrency);
       const displayValue = formatValueForDisplay(convertedValue);
-      console.info(`- ${convertedValue} ${targetCurrency}`);
+      console.info(`- ${displayValue} ${targetCurrency}`);
     }
   }
 }
