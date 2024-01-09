@@ -1,7 +1,7 @@
 {
   "name": "nodejs-debug",
   "version": "1.0.0",
-  "description": "a simple code sample to debug Node.js code",
+  "description": "a simple code sample to teach how to debug Node.js application",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
