@@ -29,7 +29,7 @@ function printForeignValues(value, sourceCurrency) {
     if (targetCurrency !== sourceCurrency) {
       const convertedValue = convertToCurrency(value, sourceCurrency, targetCurrency);
       const displayValue = formatValueForDisplay(convertedValue);
-      console.info(`- ${convertedValue} ${targetCurrency}`);
+      console.info(`- ${displayValue} ${targetCurrency}`);
     }
   }
 }
