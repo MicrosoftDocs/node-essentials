@@ -1,0 +1,26 @@
+{
+  "name": "nodejs-debug",
+  "version": "1.0.0",
+  "description": "a simple code sample to debug Node.js code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "javascript",
+    "nodejs",
+    "azure",
+    "mslearning",
+    "microsoft-learn",
+    "tutorial"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.23.3",
+    "eslint": "^8.54.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "prettier": "3.1.0"
+  }
+}
