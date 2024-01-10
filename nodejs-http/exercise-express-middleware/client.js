@@ -8,7 +8,7 @@ http.get(
     headers: {},
   },
   (res) => {
-    console.log("connected");
+    console.log(`connected - statusCode: ${res.statusCode}`);
     res.on("data", (chunk) => {
       console.log("chunk", "" + chunk);
     });
