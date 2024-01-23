@@ -52,4 +52,13 @@ updates:
     open-pull-requests-limit: 10
     ignore:
       - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
+
+  - package-ecosystem: "npm"
+    directory: "nodejs-files"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    ignore:
+      - dependency-name: "*"
         update-types: ["version-update:semver-patch"] 
