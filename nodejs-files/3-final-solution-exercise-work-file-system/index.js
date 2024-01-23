@@ -1,3 +1,4 @@
+const path = require('path');
 const fs = require("fs").promises;
 
 async function findSalesFiles(folderName) {
@@ -25,15 +26,9 @@ async function findSalesFiles(folderName) {
 }
 
 async function main() {
-  // Use "../stores" to navigate to the sibling 'stores' folder
-  const storesFolderPath = `${__dirname}/../stores`;
-
-  try {
-    const results = await findSalesFiles(storesFolderPath);
-    console.log(results);
-  } catch (error) {
-    console.error('Error:', error.message);
-  }
+  const storesFolderPath = path.join(__dirname, '..', 'stores');
+  const results = await findSalesFiles(storesFolderPath);
+  console.log(results);
 }
 
 main();
