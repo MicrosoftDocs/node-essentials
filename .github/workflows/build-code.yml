@@ -23,24 +23,35 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
+
     - name: Module 1 - nodejs-intro
       run: |
         cd nodejs-intro
         npm install
         npm run format
         npm run lint
+        
     - name: Module 2 - node-dependencies
       run: |
         cd node-dependencies
         npm install
         npm run format
         npm run lint
+
     - name: Module 3 - nodejs-debug
       run: |
         cd node-dependencies
         npm install
         npm run format
         npm run lint
+
+    - name: Install Dependecies
+      run: |
+        cd nodejs-files
+        npm install
+    - name: Install Prettier
+      run: |
+        npm install -g prettier
     - name: Module 4 - nodejs-files
       run: |
         cd nodejs-files
