@@ -1,5 +1,5 @@
 const path = require('path');
-const fs = require("fs").promises;
+const fs = require('fs').promises;
 
 async function findSalesFiles(folderName) {
   let results = [];
@@ -9,17 +9,19 @@ async function findSalesFiles(folderName) {
 
     for (const item of items) {
       if (item.isDirectory()) {
-        const resultsReturned = await findSalesFiles(`${folderName}/${item.name}`);
+        const resultsReturned = await findSalesFiles(
+          `${folderName}/${item.name}`,
+        );
         results = results.concat(resultsReturned);
       } else {
-        if (item.name === "sales.json") {
+        if (item.name === 'sales.json') {
           results.push(`${folderName}/${item.name}`);
         }
       }
     }
   } catch (error) {
     console.error('Error reading folder:', error.message);
-    throw error; 
+    throw error;
   }
 
   return results;
