@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint \"./**/*.js\" --fix",
-    "format": "prettier \"./**/*.js\" --write"
+    "format": "prettier \"./**/*.js\" --write",
+    "precommit": "npm run format && git add . && npm run lint"
   },
   "keywords": [
     "javascript",
@@ -23,6 +24,12 @@
     "eslint": "^8.56.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.1",
+    "husky": "^8.0.3",
     "prettier": "^3.2.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit"
+    }
   }
 }
