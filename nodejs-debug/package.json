@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ./4-final-solution-exercise-built-debugger/*.js --fix",
-    "format": "prettier ./4-final-solution-exercise-built-debugger/*.js --write"
+    "lint": "eslint \"./**/*.js\" --fix",
+    "format": "prettier \"./**/*.js\" --write"
   },
   "keywords": [
     "javascript",

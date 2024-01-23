@@ -1,13 +1,13 @@
 {
-  "name": "nodejs-intro (ES module)",
+  "name": "nodejs-intro",
   "version": "1.0.0",
   "description": "a simple code sample for the Introduction to Node.js Course",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ./3-how-nodejs-works/*.js --fix",
-    "format": "prettier ./3-how-nodejs-works/*.js --write"
+    "lint": "eslint \"./**/*.js\" --fix",
+    "format": "prettier \"./**/*.js\" --write"
   },
   "keywords": [
     "javascript",
