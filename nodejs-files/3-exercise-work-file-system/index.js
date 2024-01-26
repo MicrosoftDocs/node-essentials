@@ -18,18 +18,20 @@ async function findSalesFiles(folderName) {
       // (4) Add an `if` statement to determine if the item is a file or a directory.
       if (item.isDirectory()) {
         // (5) If the item is a directory, _resursively call the function `findSalesFiles` again, passing in the path to the item.
-        const resultsReturned = await findSalesFiles(`${folderName}/${item.name}`);
+        const resultsReturned = await findSalesFiles(
+          `${folderName}/${item.name}`,
+        );
         results = results.concat(resultsReturned);
       } else {
         // (6) If it's not a directory, add a check to make sure the item name matches *sales.json*.
         if (item.name === 'sales.json') {
-        results.push(`${folderName}/${item.name}`);
+          results.push(`${folderName}/${item.name}`);
         }
       }
     }
   } catch (error) {
     console.error('Error reading folder:', error.message);
-    throw error; 
+    throw error;
   }
 
   return results;
