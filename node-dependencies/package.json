@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest ./5-final-solution-exercise-dependency",
-    "lint": "eslint ./5-final-solution-exercise-dependency/*.js --fix",
-    "format": "prettier ./5-final-solution-exercise-dependency/*.js --write"
+    "lint": "eslint \"./**/*.js\" --fix",
+    "format": "prettier \"./**/*.js\" --write"
   },
   "keywords": [
     "javascript",

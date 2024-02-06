@@ -12,7 +12,8 @@ function setExchangeRate(rate, sourceCurrency, targetCurrency) {
   for (const currency in rates) {
     if (currency !== targetCurrency) {
       // Use a pivot rate for currencies that don't have the direct conversion rate
-      const pivotRate = currency === sourceCurrency ? 1 : rates[currency][sourceCurrency];
+      const pivotRate =
+        currency === sourceCurrency ? 1 : rates[currency][sourceCurrency];
       rates[currency][targetCurrency] = rate * pivotRate;
       rates[targetCurrency][currency] = 1 / (rate * pivotRate);
     }
@@ -33,7 +34,11 @@ function printForeignValues(value, sourceCurrency) {
 
   for (const targetCurrency in rates) {
     if (targetCurrency !== sourceCurrency) {
-      const convertedValue = convertToCurrency(value, sourceCurrency, targetCurrency);
+      const convertedValue = convertToCurrency(
+        value,
+        sourceCurrency,
+        targetCurrency,
+      );
       const displayValue = formatValueForDisplay(convertedValue);
       console.info(`- ${displayValue} ${targetCurrency}`);
     }
