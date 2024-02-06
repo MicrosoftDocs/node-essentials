@@ -1,9 +1,5 @@
-// To debug in Codespaces or dev container, use
-// index-unit-5.js which has the __dirname and path.join needed
-// to resolve the path correctly.
-
-const path = require('path');
 const fs = require('fs').promises;
+const path = require('path');
 
 async function findSalesFiles(folderName) {
   // (1) Add an array at the top, to hold the paths to all the sales files that the program finds.
@@ -19,17 +15,17 @@ async function findSalesFiles(folderName) {
       if (item.isDirectory()) {
         // (5) If the item is a directory, _resursively call the function `findSalesFiles` again, passing in the path to the item.
         const resultsReturned = await findSalesFiles(
-          `${folderName}/${item.name}`,
+          path.join(folderName, item.name),
         );
         results = results.concat(resultsReturned);
       } else {
-        // (6) If it's not a directory, add a check to make sure the item name matches *sales.json*.
-        if (item.name === 'sales.json') {
+        if (path.extname(item.name) === '.json') {
           results.push(`${folderName}/${item.name}`);
         }
       }
     }
   } catch (error) {
+    // (6) If it's not a directory, add a check to make sure the item name matches *sales.json*.
     console.error('Error reading folder:', error.message);
     throw error;
   }
@@ -38,9 +34,11 @@ async function findSalesFiles(folderName) {
 }
 
 async function main() {
-  const storesFolderPath = path.join(__dirname, '..', 'stores');
-  const results = await findSalesFiles(storesFolderPath);
-  console.log(results);
+  const salesDir = path.join(__dirname, '..', 'stores');
+
+  // find paths to all the sales files
+  const salesFiles = await findSalesFiles(salesDir);
+  console.log(salesFiles);
 }
 
 main();
