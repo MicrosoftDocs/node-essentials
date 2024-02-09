@@ -16,7 +16,9 @@
 				"christian-kohler.npm-intellisense",
 				"GitHub.copilot",
 				"GitHub.copilot-chat",
-				"xabikos.JavaScriptSnippets"
+				"xabikos.JavaScriptSnippets",
+				"redhat.vscode-yaml",
+				"github.vscode-github-actions"
 			]
 		}
 	}

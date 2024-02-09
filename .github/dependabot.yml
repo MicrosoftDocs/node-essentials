@@ -62,3 +62,21 @@ updates:
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-patch"] 
+
+  - package-ecosystem: "npm"
+    directory: "nodejs-http"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]  
+
+  - package-ecosystem: "npm"
+    directory: "nodejs-http/3-final-solution-exercise-express-web-app"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
