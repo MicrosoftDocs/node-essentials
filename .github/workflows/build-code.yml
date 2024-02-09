@@ -78,4 +78,17 @@ jobs:
         cd nodejs-files
         npm run format
         npm run lint
+
+    - name: Install Dependecies
+      run: |
+        cd nodejs-http
+        npm install
+    - name: Install Prettier
+      run: |
+        npm install -g prettier
+    - name: Module 5 - nodejs-http
+      run: |
+        cd nodejs-http
+        npm run format
+        npm run lint
     
