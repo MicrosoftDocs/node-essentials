@@ -4,7 +4,9 @@ const options = {
   port: 3000,
   hostname: 'localhost',
   path: '/users',
-  headers: {},
+  headers: {
+    authorization: 'secretpassword'
+  },
 };
 
 const req = http.get(options, (res) => {
