@@ -1,22 +1,22 @@
-const http = require("http");
+const http = require('http');
 
 http.get(
   {
     port: 3000,
-    hostname: "localhost",
-    path: "/users",
+    hostname: 'localhost',
+    path: '/users',
     headers: {},
   },
   (res) => {
     console.log(`connected - statusCode: ${res.statusCode}`);
-    res.on("data", (chunk) => {
-      console.log("chunk", "" + chunk);
+    res.on('data', (chunk) => {
+      console.log('chunk', '' + chunk);
     });
-    res.on("end", () => {
-      console.log("No more data");
+    res.on('end', () => {
+      console.log('No more data');
     });
-    res.on("close", () => {
-      console.log("Closing connection");
+    res.on('close', () => {
+      console.log('Closing connection');
     });
-  }
+  },
 );
