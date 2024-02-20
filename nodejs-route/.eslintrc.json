@@ -1,0 +1,25 @@
+{
+    "env": {
+        "commonjs": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "requireConfigFile": false,
+        "babelOptions": {
+            "parserOpts": {
+                "plugins": ["topLevelAwait"]
+            }
+        }
+    },
+    "rules": {
+        "no-console": "off",
+        "no-undef": "off",
+        "no-unused-vars": "off",
+        "no-shadow": "off",
+        "require-await": "error"
+    }
+}
