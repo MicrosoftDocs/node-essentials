@@ -1,9 +1,8 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const app = express();
+const port = 3000;
 
-let bodyParser = require('body-parser');
-app.use(bodyParser.json());
+app.use(express.json());
 
 let products = [];
 
@@ -21,7 +20,8 @@ app.delete('/products/:id', function (req, res) {
 
 app.get('/products', (req, res) => {
   // implement
-})
+});
 
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
-  
+app.listen(port, () =>
+  console.log(`Example app listening at http://localhost:${port}`),
+);

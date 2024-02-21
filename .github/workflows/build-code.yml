@@ -91,4 +91,16 @@ jobs:
         cd nodejs-http
         npm run format
         npm run lint
-    
+
+    - name: Install Dependecies
+      run: |
+        cd nodejs-route
+        npm install
+    - name: Install Prettier
+      run: |
+        npm install -g prettier
+    - name: Module 6 - nodejs-route
+      run: |
+        cd nodejs-route
+        npm run format
+        npm run lint   
