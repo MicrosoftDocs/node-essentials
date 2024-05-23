@@ -24,10 +24,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Install Dependecies
-      run: |
-        cd nodejs-intro
-        npm install
     - name: Install Prettier
       run: |
         npm install -g prettier
@@ -37,14 +33,13 @@ jobs:
         npm install
         npm run format
         npm run lint
-    
-    - name: Install Dependecies
+    - name: Module 1 - nodejs-intro-esm
       run: |
-        cd node-dependencies
+        cd nodejs-intro-esm
         npm install
-    - name: Install Prettier
-      run: |
-        npm install -g prettier
+        npm run format
+        npm run lint        
+    
     - name: Module 2 - node-dependencies
       run: |
         cd node-dependencies
@@ -52,13 +47,6 @@ jobs:
         npm run format
         npm run lint
 
-    - name: Install Dependecies
-      run: |
-        cd nodejs-debug
-        npm install
-    - name: Install Prettier
-      run: |
-        npm install -g prettier
     - name: Module 3 - nodejs-debug
       run: |
         cd node-dependencies
@@ -66,41 +54,23 @@ jobs:
         npm run format
         npm run lint
 
-    - name: Install Dependecies
-      run: |
-        cd nodejs-files
-        npm install
-    - name: Install Prettier
-      run: |
-        npm install -g prettier
     - name: Module 4 - nodejs-files
       run: |
         cd nodejs-files
+        npm install
         npm run format
         npm run lint
 
-    - name: Install Dependecies
-      run: |
-        cd nodejs-http
-        npm install
-    - name: Install Prettier
-      run: |
-        npm install -g prettier
     - name: Module 5 - nodejs-http
       run: |
         cd nodejs-http
+        npm install
         npm run format
         npm run lint
 
-    - name: Install Dependecies
-      run: |
-        cd nodejs-route
-        npm install
-    - name: Install Prettier
-      run: |
-        npm install -g prettier
     - name: Module 6 - nodejs-route
       run: |
         cd nodejs-route
+        npm install
         npm run format
         npm run lint   

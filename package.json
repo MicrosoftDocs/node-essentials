@@ -7,5 +7,14 @@
   },
   "dependencies": {
     "prettier": "^3.1.0"
-  }
+  },
+  "workspaces": [
+    "node-dependencies",
+    "nodejs-debug",
+    "nodejs-files",
+    "nodejs-http",
+    "nodejs-intro",
+    "nodejs-intro-esm",
+    "nodejs-route"
+  ]
 }
