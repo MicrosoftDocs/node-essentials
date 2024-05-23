@@ -57,17 +57,20 @@ jobs:
     - name: Module 4 - nodejs-files
       run: |
         cd nodejs-files
+        npm install
         npm run format
         npm run lint
 
     - name: Module 5 - nodejs-http
       run: |
         cd nodejs-http
+        npm install
         npm run format
         npm run lint
 
     - name: Module 6 - nodejs-route
       run: |
         cd nodejs-route
+        npm install
         npm run format
         npm run lint   
