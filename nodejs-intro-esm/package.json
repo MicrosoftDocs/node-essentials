@@ -5,8 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint \"./**/*.js\" --fix",
+    "format": "prettier \"./**/*.js\" --write"  },
   "keywords": [
     "javascript",
     "nodejs",
@@ -18,7 +19,11 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^8"
+    "@babel/eslint-parser": "^7.24.1",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "prettier": "3.2.4"
   },
   "dependencies": {
     "node-fetch": "^3.3.2"
