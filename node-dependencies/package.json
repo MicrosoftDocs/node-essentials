@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "a simple code sample for the Introduction to Node.js Course",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "test": "npm run test:playwright && npm run test:jest",
     "test:playwright": "cd 5-exercise-dependency-playwright && npm test",

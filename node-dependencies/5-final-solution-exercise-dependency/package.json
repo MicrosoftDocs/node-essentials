@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "a simple code sample teaching how to use some packages from npm",
   "main": "address-parser.js",
+  "type":"commonjs",
   "scripts": {
     "test": "jest"
   },
