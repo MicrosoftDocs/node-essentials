@@ -1,0 +1,46 @@
+{
+  "name": "unit-testing",
+  "version": "1.0.0",
+  "description": "This subfolder is the source code for the [TBD article](). The purpose is to demonstrate unit test mocks for the Azure SDK for JavaScript. These specific examples use Azure Cosmos DB.",
+  "main": "index.js",
+  "scripts": {
+    "clear": "rm -rf dist && rm -rf coverage",
+    "start": "node dist/index.js",
+    "test": "jest dist",
+    "test:coverage": "jest dist --coverage",
+    "build": "npm run clear && tsc",
+    "lint": "eslint \"./**/*.ts\" --fix",
+    "format": "prettier \"./**/*.ts\" --write",
+    "precommit": "npm run format && git add . && npm run lint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@azure/cosmos": "^4.1.0",
+    "@azure/identity": "^4.4.1",
+    "dotenv": "^16.4.5",
+    "uuid": "^10.0.0",
+    "zod": "^3.23.8",
+    "zod-fixture": "^2.5.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^22.4.0",
+    "@types/uuid": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.2.0",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jest": "^28.8.0",
+    "husky": "^9.0.10",
+    "jest": "^29.7.0",
+    "prettier": "^3.2.4",
+    "typescript": "^5.5.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit"
+    }
+  }
+}

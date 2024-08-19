@@ -1,0 +1,1 @@
+This subfolder is the source code for the [TBD article](). The purpose is to demonstrate unit test mocks for the Azure SDK for JavaScript. These specific examples use Azure Cosmos DB. 

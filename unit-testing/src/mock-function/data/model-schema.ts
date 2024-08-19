@@ -1,0 +1,43 @@
+// input-verified.ts
+import { z } from 'zod';
+
+export interface DbDocument {
+  id: string;
+  name: string;
+}
+export function isDbDocument(doc: any): doc is DbDocument {
+  return (
+    typeof doc === 'object' &&
+    doc !== null &&
+    'id' in doc &&
+    typeof doc.id === 'string' &&
+    'name' in doc &&
+    typeof doc.name === 'string'
+  );
+}
+
+export interface DbError {
+  message: string;
+  code: number;
+}
+export function isDbError(error: any): error is DbError {
+  return 'message' in error && 'code' in error;
+}
+
+export interface VerificationErrors {
+  message: string;
+}
+export function isVerificationErrors(error: any): error is VerificationErrors {
+  return 'message' in error;
+}
+
+export interface RawInput {
+  id: string;
+  first: string;
+  last: string;
+}
+
+export const RawInputSchema = z.object({
+  first: z.string().min(1, 'First name is required'),
+  last: z.string().min(1, 'Last name is required'),
+});
