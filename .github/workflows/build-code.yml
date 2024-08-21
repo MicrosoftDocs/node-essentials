@@ -79,3 +79,11 @@ jobs:
         npm install
         npm run format
         npm run lint   
+
+    - name: Docs - async iterators
+      # In JS Dev Center
+      run: |
+        cd async-iterators
+        npm install
+        npm run format
+        npm run lint   
