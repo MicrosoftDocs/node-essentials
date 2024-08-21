@@ -8,9 +8,14 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
     branches: [main]
+
+permissions: 
+  contents: read
+
 jobs:
   build:
-
+    permissions: 
+      contents: read  # Job-level permissions
     runs-on: ubuntu-latest
 
     strategy:
