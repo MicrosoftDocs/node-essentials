@@ -4,8 +4,8 @@ import { DbDocument, RawInput } from '../data/model-schema';
 
 function createFixture<T>(): T {
   const result = {
-    first: faker.name.firstName(),
-    last: faker.name.lastName(),
+    first: faker.person.firstName(),
+    last: faker.person.lastName(),
   };
   return result as T;
 }

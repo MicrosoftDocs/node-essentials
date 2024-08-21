@@ -1,10 +1,10 @@
 // insertDocument.ts
 import { Container } from '../data/connect-to-cosmos';
 import {
-    DbDocument,
-    DbError,
-    RawInput,
-    VerificationErrors,
+  DbDocument,
+  DbError,
+  RawInput,
+  VerificationErrors,
 } from '../data/model-schema';
 import { inputVerified } from '../data/verify';
 
