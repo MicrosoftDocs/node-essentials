@@ -43,7 +43,7 @@ describe('insertDocument', () => {
     // wrong shape of doc
     const doc = { name: 'test' };
 
-    const returnedFunctionResult = await insertDocument(
+    const insertDocumentResult = await insertDocument(
       mockContainer,
       doc as unknown as RawInput,
     );
