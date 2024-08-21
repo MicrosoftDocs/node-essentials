@@ -1,7 +1,7 @@
 // input-verified.ts
-import { RawInputSchema } from './model-schema';
+import { validateRawInput } from './model-schema';
 
 export function inputVerified(doc: any): boolean {
-  const result = RawInputSchema.safeParse(doc);
-  return result.success;
+  const result = validateRawInput(doc);
+  return (result.length===0) ? true : false;
 }

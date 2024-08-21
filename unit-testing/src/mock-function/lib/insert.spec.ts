@@ -4,7 +4,6 @@ import { createTestInputAndResult } from '../data/fake-data';
 import {
   DbDocument,
   DbError,
-  isDbDocument,
   isDbError,
   isVerificationErrors,
   RawInput,
@@ -49,8 +48,8 @@ describe('insertDocument', () => {
     );
 
     // State verification: Check the result when verification fails
-    if (isVerificationErrors(returnedFunctionResult)) {
-      expect(returnedFunctionResult).toEqual({
+    if (isVerificationErrors(insertDocumentResult)) {
+      expect(insertDocumentResult).toEqual({
         message: 'Verification failed',
       });
     } else {
@@ -70,14 +69,11 @@ describe('insertDocument', () => {
       resource: result,
     });
 
-    const returnedFunctionResult = await insertDocument(mockContainer, input);
+    const insertDocumentResult = await insertDocument(mockContainer, input);
 
     // State verification: Check the result when insertion is successful
-    //if (isDbDocument(returnedFunctionResult)) {
-      expect(returnedFunctionResult).toEqual(result);
-    //} else {
-    //  throw new Error('Result is not of type DbDocument');
-    //}
+    expect(insertDocumentResult).toEqual(result);
+
     // Behavior verification: Ensure create method was called with correct arguments
     expect(mockContainer.items.create).toHaveBeenCalledTimes(1);
   });
@@ -93,11 +89,11 @@ describe('insertDocument', () => {
     (inputVerified as jest.Mock).mockReturnValue(true);
     (mockContainer.items.create as jest.Mock).mockRejectedValue(mockError);
 
-    const result = await insertDocument(mockContainer, input);
+    const insertDocumentResult = await insertDocument(mockContainer, input);
 
     // Verify type as DbError
-    if (isDbError(result)) {
-      expect(result.message).toBe(mockError.message);
+    if (isDbError(insertDocumentResult)) {
+      expect(insertDocumentResult.message).toBe(mockError.message);
     } else {
       throw new Error('Result is not of type DbError');
     }

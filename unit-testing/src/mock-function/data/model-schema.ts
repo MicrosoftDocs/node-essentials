@@ -5,16 +5,6 @@ export interface DbDocument {
   id: string;
   name: string;
 }
-export function isDbDocument(doc: any): doc is DbDocument {
-  return (
-    typeof doc === 'object' &&
-    doc !== null &&
-    'id' in doc &&
-    typeof doc.id === 'string' &&
-    'name' in doc &&
-    typeof doc.name === 'string'
-  );
-}
 
 export interface DbError {
   message: string;
