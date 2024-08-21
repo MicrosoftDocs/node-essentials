@@ -1,0 +1,30 @@
+{
+    "env": {
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2021,
+        "project": "./tsconfig.json"
+    },
+    "plugins": [
+        "jest",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "no-console": "off",
+        "no-noImplicitAny": "off",
+        "require-await": "error",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-argument": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/unbound-method": "off",
+        "@typescript-eslint/no-floating-promises": "error"
+    }
+}

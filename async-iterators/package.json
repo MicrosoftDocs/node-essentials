@@ -1,0 +1,40 @@
+{
+  "name": "async-iterators",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "clear": "rm -rf dist && rm -rf coverage",
+    "start": "node dist/index.js",
+    "test:coverage": "jest dist --coverage",
+    "build": "npm run clear && tsc",
+    "lint": "eslint \"./**/*.ts\" --fix",
+    "format": "prettier \"./**/*.ts\" --write",
+    "precommit": "npm run format && git add . && npm run lint"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@azure/identity": "^4.4.1",
+    "@azure/storage-blob": "^12.24.0",
+    "@types/node": "^22.4.1",
+    "dotenv": "^16.4.5",
+    "prettier": "^3.3.3",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/uuid": "^10.0.0",
+    "typescript": "^5.5.4",
+    "@typescript-eslint/eslint-plugin": "^8.2.0",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jest": "^28.8.0",
+    "husky": "^9.0.10"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit"
+    }
+  }
+}
