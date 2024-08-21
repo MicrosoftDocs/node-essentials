@@ -37,7 +37,16 @@ export interface RawInput {
   last: string;
 }
 
-export const RawInputSchema = z.object({
-  first: z.string().min(1, 'First name is required'),
-  last: z.string().min(1, 'Last name is required'),
-});
+export function validateRawInput(input: any): string[] {
+  const errors: string[] = [];
+
+  if (typeof input.first !== 'string' || input.first.trim().length === 0) {
+    errors.push('First name is required and must be a non-empty string');
+  }
+
+  if (typeof input.last !== 'string' || input.last.trim().length === 0) {
+    errors.push('Last name is required and must be a non-empty string');
+  }
+
+  return errors;
+}

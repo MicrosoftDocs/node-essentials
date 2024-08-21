@@ -38,7 +38,7 @@ describe('insertDocument', () => {
   });
 
   it('should return verification error if input is not verified', async () => {
-    (inputVerified as jest.Mock).mockReturnValue(false);
+    jest.mocked(inputVerified).mockReturnValue(false);
 
     // wrong shape of doc
     const doc = { name: 'test' };
@@ -73,11 +73,11 @@ describe('insertDocument', () => {
     const returnedFunctionResult = await insertDocument(mockContainer, input);
 
     // State verification: Check the result when insertion is successful
-    if (isDbDocument(returnedFunctionResult)) {
+    //if (isDbDocument(returnedFunctionResult)) {
       expect(returnedFunctionResult).toEqual(result);
-    } else {
-      throw new Error('Result is not of type DbDocument');
-    }
+    //} else {
+    //  throw new Error('Result is not of type DbDocument');
+    //}
     // Behavior verification: Ensure create method was called with correct arguments
     expect(mockContainer.items.create).toHaveBeenCalledTimes(1);
   });

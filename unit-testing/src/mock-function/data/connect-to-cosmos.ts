@@ -7,12 +7,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 export { Container };
 
-export function connectToCosmosWithKey() {
-  const endpoint = process.env.COSMOS_ENDPOINT;
-  const key = process.env.COSMOS_KEY;
-  const client = new CosmosClient({ endpoint, key });
-  return client;
-}
 export function connectToCosmosWithoutKey() {
   const endpoint = process.env.COSMOS_ENDPOINT;
   const credential = new DefaultAzureCredential();
@@ -20,7 +14,7 @@ export function connectToCosmosWithoutKey() {
   return client;
 }
 export async function connectToContainer(): Promise<Container> {
-  const client = connectToCosmosWithKey();
+  const client = connectToCosmosWithoutKey();
   const databaseName = process.env.COSMOS_DATABASE_NAME;
   const containerName = process.env.COSMOS_CONTAINER_NAME;
 

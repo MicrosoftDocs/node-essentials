@@ -1,9 +1,17 @@
 import { v4 as uuidv4 } from 'uuid';
-import { createFixture } from 'zod-fixture';
-import { DbDocument, RawInput, RawInputSchema } from '../data/model-schema';
+import { faker } from '@faker-js/faker';
+import { DbDocument, RawInput } from '../data/model-schema';
+
+function createFixture<T>(): T {
+  const result = {
+    first: faker.name.firstName(),
+    last: faker.name.lastName(),
+  };
+  return result as T;
+}
 
 export function createTestInput(): RawInput {
-  const { first, last } = createFixture(RawInputSchema);
+  const { first, last } = createFixture<RawInput>();
   return { id: uuidv4(), first, last };
 }
 
@@ -16,6 +24,5 @@ export function createTestInputAndResult(): {
     id: input.id,
     name: `${input.first} ${input.last}`,
   };
-  const fnVal = { input, result };
-  return fnVal;
+  return { input, result };
 }
