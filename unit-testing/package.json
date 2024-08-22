@@ -20,9 +20,7 @@
     "@azure/cosmos": "^4.1.0",
     "@azure/identity": "^4.4.1",
     "dotenv": "^16.4.5",
-    "uuid": "^10.0.0",
-    "zod": "^3.23.8",
-    "zod-fixture": "^2.5.2"
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
