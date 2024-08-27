@@ -7,7 +7,7 @@ import {
   isDbError,
   isVerificationErrors,
   RawInput,
-} from '../data/model-schema';
+} from '../data/model';
 import { inputVerified } from '../data/verify';
 import { insertDocument } from './insert';
 
@@ -39,7 +39,6 @@ describe('insertDocument', () => {
   });
 
   it('should return verification error if input is not verified', async () => {
-
     // Arrange - Mock the input verification function to return false
     jest.mocked(inputVerified).mockReturnValue(false);
 
@@ -66,7 +65,6 @@ describe('insertDocument', () => {
   });
 
   it('should insert document successfully', async () => {
-
     // Arrange - create input and expected result data
     const { input, result }: { input: RawInput; result: Partial<DbDocument> } =
       createTestInputAndResult();
@@ -85,22 +83,25 @@ describe('insertDocument', () => {
 
     // Assert - Behavior verification: Ensure create method was called with correct arguments
     expect(mockContainer.items.create).toHaveBeenCalledTimes(1);
+    expect(mockContainer.items.create).toHaveBeenCalledWith({
+      id: input.id,
+      name: result.name,
+    });
   });
 
   it('should return error if db insert fails', async () => {
-
     // Arrange - create input and expected result data
-    const { input } = createTestInputAndResult();
+    const { input, result } = createTestInputAndResult();
 
     // Arrange - mock the input verification function to return true
-    (inputVerified as jest.Mock).mockReturnValue(true);
+    jest.mocked(inputVerified).mockReturnValue(true);
 
     // Arrange - mock the Cosmos DB create method to throw an error
     const mockError: DbError = {
       message: 'An unknown error occurred',
       code: 500,
     };
-    (mockContainer.items.create as jest.Mock).mockRejectedValue(mockError);
+    jest.mocked(mockContainer.items.create).mockRejectedValue(mockError);
 
     // Act - Call the function to test
     const insertDocumentResult = await insertDocument(mockContainer, input);
@@ -114,5 +115,9 @@ describe('insertDocument', () => {
 
     // Assert - Behavior verification: Ensure create method was called with correct arguments
     expect(mockContainer.items.create).toHaveBeenCalledTimes(1);
+    expect(mockContainer.items.create).toHaveBeenCalledWith({
+      id: input.id,
+      name: result.name,
+    });
   });
 });

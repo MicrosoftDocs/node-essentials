@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "clear": "rm -rf dist && rm -rf coverage",
-    "start": "node dist/index.js",
+    "start": "node dist/mock-function/index.js",
     "test": "jest dist",
     "test:coverage": "jest dist --coverage",
     "build": "npm run clear && tsc",
-    "lint": "eslint \"./**/*.ts\" --fix",
-    "format": "prettier \"./**/*.ts\" --write",
+    "lint": "eslint \"./src/**/*.ts\" --fix",
+    "format": "prettier \"./src/**/*.ts\" --write",
     "precommit": "npm run format && git add . && npm run lint"
   },
   "keywords": [],

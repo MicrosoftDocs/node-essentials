@@ -8,8 +8,9 @@ import { v4 as uuidv4 } from 'uuid';
 export { Container };
 
 export function connectToCosmosWithoutKey() {
-  const endpoint = process.env.COSMOS_ENDPOINT;
+  const endpoint = process.env.COSMOS_DB_ENDPOINT!;
   const credential = new DefaultAzureCredential();
+
   const client = new CosmosClient({ endpoint, aadCredentials: credential });
   return client;
 }

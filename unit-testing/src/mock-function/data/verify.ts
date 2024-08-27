@@ -1,5 +1,5 @@
 // input-verified.ts
-import { validateRawInput } from './model-schema';
+import { validateRawInput } from './model';
 
 export function inputVerified(doc: any): boolean {
   const result = validateRawInput(doc);

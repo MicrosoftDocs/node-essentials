@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { faker } from '@faker-js/faker';
-import { DbDocument, RawInput } from '../data/model-schema';
+import { DbDocument, RawInput } from './model';
 
 function createFixture<T>(): T {
   const result = {

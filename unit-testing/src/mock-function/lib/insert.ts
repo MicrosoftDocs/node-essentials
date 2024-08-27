@@ -5,7 +5,7 @@ import {
   DbError,
   RawInput,
   VerificationErrors,
-} from '../data/model-schema';
+} from '../data/model';
 import { inputVerified } from '../data/verify';
 
 export async function insertDocument(
@@ -25,7 +25,7 @@ export async function insertDocument(
     });
 
     return resource as DbDocument;
-  } catch (error: unknown) {
+  } catch (error: any) {
     if (error instanceof Error) {
       if ((error as any).code === 409) {
         return {

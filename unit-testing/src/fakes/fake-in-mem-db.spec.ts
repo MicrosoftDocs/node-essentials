@@ -23,9 +23,9 @@ function someTestFunction(db: FakeDatabase, key: string, value: any): any {
 
 // Jest test suite
 describe('someTestFunction', () => {
-  let fakeDb;
-  let testKey;
-  let testValue;
+  let fakeDb: FakeDatabase;
+  let testKey: string;
+  let testValue: any;
 
   beforeEach(() => {
     fakeDb = new FakeDatabase();

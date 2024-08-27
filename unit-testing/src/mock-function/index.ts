@@ -1,6 +1,6 @@
 import { connectToContainer } from './data/connect-to-cosmos';
 import { createTestInput } from './data/fake-data';
-import { DbDocument, DbError, VerificationErrors } from './data/model-schema';
+import { DbDocument, DbError, VerificationErrors } from './data/model';
 import { insertDocument } from './lib/insert';
 
 async function main(): Promise<DbDocument | DbError | VerificationErrors> {
