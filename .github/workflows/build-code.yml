@@ -51,6 +51,7 @@ jobs:
         npm install
         npm run format
         npm run lint
+        npm run test
 
     - name: Module 3 - nodejs-debug
       run: |

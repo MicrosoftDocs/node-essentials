@@ -9,8 +9,9 @@
     "parserOptions": {
         "ecmaVersion": "latest",
         "requireConfigFile": false,
+        "sourceType": "script",
         "babelOptions": {
-            "parserOpts": {
+            "parserOpts": {            
                 "plugins": ["topLevelAwait"]
             }
         }

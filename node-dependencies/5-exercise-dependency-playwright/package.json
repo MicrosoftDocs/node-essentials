@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "test": "playwright test"
   },
@@ -17,6 +18,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@playwright/test": "^1.40.0"
+    "@playwright/test": "^1.45.2"
   }
 }

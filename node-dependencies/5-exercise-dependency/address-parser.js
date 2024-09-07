@@ -1,6 +1,13 @@
 exports.addressParser = function parseOrder(order) {
   const match = order.match(
-    /order:\s(?<order>\w+\s\w+).*address:\s(?<address>\w+\s\w+\s\w+).*payment info:\s(?<payment>\w+)/,
+    /order:\s(\w+\s\w+).*?address:\s(\w+\s\w+\s\w+).*?payment info:\s(\w+)/,
   );
-  return match.groups;
+  if (match) {
+    return {
+      order: match[1],
+      address: match[2],
+      payment: match[3],
+    };
+  }
+  return null;
 };
