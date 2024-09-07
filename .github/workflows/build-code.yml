@@ -8,9 +8,14 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
     branches: [main]
+
+permissions: 
+  contents: read
+
 jobs:
   build:
-
+    permissions: 
+      contents: read  # Job-level permissions
     runs-on: ubuntu-latest
 
     strategy:
@@ -72,6 +77,14 @@ jobs:
     - name: Module 6 - nodejs-route
       run: |
         cd nodejs-route
+        npm install
+        npm run format
+        npm run lint   
+
+    - name: Docs - async iterators
+      # In JS Dev Center
+      run: |
+        cd async-iterators
         npm install
         npm run format
         npm run lint   
