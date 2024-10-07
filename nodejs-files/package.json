@@ -21,7 +21,7 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/eslint-parser": "^7.24.1",
-    "eslint": "^8.57.0",
+    "eslint": "^9.12.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.1",
     "husky": "^9.0.10",
