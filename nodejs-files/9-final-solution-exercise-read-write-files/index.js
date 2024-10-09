@@ -28,13 +28,12 @@ async function findSalesFiles(folderName) {
           results.push(`${folderName}/${item.name}`);
         }
       }
-
-      return results;
     }
   } catch (error) {
     console.error('Error reading folder:', error.message);
     throw error;
   }
+  return results;
 }
 
 async function main() {
