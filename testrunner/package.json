@@ -2,9 +2,10 @@
   "name": "testrunner",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "build": "rm -rf dist && tsc",
-    "test": "npm run build && NODE_DEBUG_NATIVE=node:test NODE_DEBUG=node:test node --test --experimental-test-coverage --experimental-test-module-mocks",
+    "test": "node --experimental-strip-types --test --experimental-test-coverage --experimental-test-module-mocks",
     "test:dev": "npm run build && node --watch --test test/ "
   },
   "directories": {
