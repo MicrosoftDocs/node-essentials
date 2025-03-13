@@ -26,3 +26,4 @@ This subfolder is the source code for the [TBD article](). The purpose is to dem
 
 * [Passwordless connections for Azure services](https://learn.microsoft.com/azure/developer/intro/passwordless-overview)
 * [Cosmos DB keyless access to the service](https://learn.microsoft.com/azure/cosmos-db/role-based-access-control)
+* [Node.js Test Runner](https://nodejs.org/docs/latest/api/test.html#test-runner)

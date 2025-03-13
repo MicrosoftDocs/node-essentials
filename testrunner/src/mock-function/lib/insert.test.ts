@@ -4,6 +4,7 @@ import assert from 'node:assert';
 import { Container } from '../data/connect-to-cosmos';
 import { createTestInputAndResult } from '../data/fake-data';
 import {
+  DbDocument,
   DbError,
   isDbError,
   isVerificationErrors,
@@ -23,10 +24,10 @@ describe('Insert into db', () => {
     mock.restoreAll()
   })
 
-  /*
+  test("Success", () => {
     it('should insert document successfully', async () => {
       // Arrange: override inputVerified to return true.
-      // Create local variables to capture calls to the container's create method.
+      const { input, result }: { input: RawInput; result: Partial<DbDocument> } = createTestInputAndResult();
 
       const fakeContainer = {
         items: {
@@ -39,27 +40,27 @@ describe('Insert into db', () => {
       const mVerify = mock.method(verifyModule, "inputVerified").mock;
       mVerify.mockImplementation(() => true);
 
-      const mContainerCreate = mock.method(fakeContainer.items, "create").mock;
-
-      // Arrange: get test input and expected result.
-      const { input, result } = createTestInputAndResult();
+      const mContainerCreate = mock.method(fakeContainer.items as any, "create").mock;
+      mContainerCreate.mockImplementation(async (doc: any) => {
+        return { resource: result };
+      });
 
       // Act:
-      const insertDocumentResult = await insertDocument(fakeContainer, input);
+      const receivedResult = await insertDocument(fakeContainer, input);
 
-      // Assert - State verification.
-      assert.deepStrictEqual(insertDocumentResult, result);
+      // Assert - State verification: Ensure the result is as expected.
+      assert.deepStrictEqual(receivedResult, result);
 
       // Assert - Behavior verification: Ensure create was called once with correct arguments.
       assert.strictEqual(mContainerCreate.callCount(), 1);
-      assert.deepStrictEqual(mContainerCreate.calls[0].arguments, {
+      assert.deepStrictEqual(mContainerCreate.calls[0].arguments[0], {
         id: input.id,
         name: result.name,
       });
     });
-    */
-/*
-  describe("Insert failure", () => {
+  });
+
+  test("Failure", () => {
     it('should return verification error if input is not verified', async () => {
 
       const fakeContainer = {
@@ -95,52 +96,48 @@ describe('Insert into db', () => {
       assert.strictEqual(mContainerCreate.callCount(), 0);
 
     });
-  });*/
-  /*
-    it('should return error if db insert fails', async () => {
-      // Arrange: override inputVerified to return true.
-      let createCallCount = 0;
-      let createCallArgs: any[] = [];
-      let errorMessage: string = 'An unknown error occurred';
-  
-      const fakeContainer = {
-        items: {
-          create: async (doc: any):Promise<any> => {
-            return Promise.resolve(null);
-          },
+  });
+
+  it('should return error if db insert fails', async () => {
+    // Arrange: override inputVerified to return true.
+    const { input, result } = createTestInputAndResult();
+    let errorMessage: string = 'An unknown error occurred';
+
+    const fakeContainer = {
+      items: {
+        create: async (doc: any): Promise<any> => {
+          return Promise.resolve(null);
         },
-      } as unknown as Container;
-  
-      const mVerify = mock.method(verifyModule, "inputVerified").mock;
-      mVerify.mockImplementation(() => true);
-  
-      const mContainerCreate = mock.method(fakeContainer.items, "create").mock;
-      mContainerCreate.mockImplementation = async (doc: any) => {
-        const mockError: DbError = {
-          message: errorMessage,
-          code: 500,
-        };
-        throw mockError;
-      }
-  
-      // Arrange: get test input and expected result.
-      const { input, result } = createTestInputAndResult();
-  
-      // Act:
-      const insertDocumentResult = await insertDocument(fakeContainer, input);
-  
-      // Assert - Verify type as DbError.
-      if (isDbError(insertDocumentResult)) {
-        assert.strictEqual(insertDocumentResult.message, errorMessage);
-      } else {
-        throw new Error('Result is not of type DbError');
-      }
-  
-      // Assert - Ensure create method was called once with the correct arguments.
-      assert.strictEqual(createCallCount, 1);
-      assert.deepStrictEqual(createCallArgs[0], {
-        id: input.id,
-        name: result.name,
-      });
-    });*/
+      },
+    } as unknown as Container;
+
+    const mVerify = mock.method(verifyModule, "inputVerified").mock;
+    mVerify.mockImplementation(() => true);
+
+    const mContainerCreate = mock.method(fakeContainer.items, "create").mock;
+    mContainerCreate.mockImplementation = async (doc: any) => {
+      const mockError: DbError = {
+        message: errorMessage,
+        code: 500,
+      };
+      throw mockError;
+    }
+
+    // Act:
+    const insertDocumentResult = await insertDocument(fakeContainer, input);
+
+    // Assert - Verify type as DbError.
+    if (isDbError(insertDocumentResult)) {
+      assert.strictEqual(insertDocumentResult.message, errorMessage);
+    } else {
+      throw new Error('Result is not of type DbError');
+    }
+
+    // Assert - Ensure create method was called once with the correct arguments.
+    assert.strictEqual(mContainerCreate.callCount(), 1);
+    assert.deepStrictEqual(mContainerCreate.calls[0].arguments[0], {
+      id: input.id,
+      name: result.name,
+    });
+  });
 });
