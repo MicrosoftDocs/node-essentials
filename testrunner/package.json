@@ -2,12 +2,15 @@
   "name": "testrunner",
   "version": "1.0.0",
   "main": "index.js",
-  "type":"module",
   "scripts": {
+    "build": "tsc",
     "test": "node --test",
     "test:dev": "node --watch --test test/ "
   },
   "directories": {
     "test": "test"
+  },
+  "dependencies": {
+    "@types/node": "^22.13.10"
   }
 }

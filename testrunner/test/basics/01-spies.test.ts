@@ -15,12 +15,14 @@ function run({fn, times}){
 describe('Spies', () => {
     it('should verify calls in a mock', () => {
         const spy = mock.fn();
-        run({fn: spy, times: 2});
+        run({fn: spy, times: 3});
 
         assert.strictEqual(spy.mock.callCount(), 3);
+        const calls = spy.mock.calls;
 
-        expect(spy).toHaveBeenNthCalledWith(1, {current: 0});
-        expect(spy).toHaveBeenNthCalledWith(2, {current: 5});
-        expect(spy).toHaveBeenNthCalledWith(3, {current: 10});
+        assert.deepStrictEqual(calls[0].arguments[0], {current: 0});
+        assert.deepStrictEqual(calls[1].arguments[0], {current: 5});
+        assert.deepStrictEqual(calls[2].arguments[0], {current: 10});
+
     });
 });
