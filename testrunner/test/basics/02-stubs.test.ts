@@ -48,10 +48,11 @@ import {
     beforeEach(() => mock.restoreAll())
   
     it('should stub APIs', async () => {
-      mock.method(
+      const m = mock.method(
         Service,
         "getTalks",
-      ).mock.mockImplementation(async () => [
+      ).mock;
+      m.mockImplementation(async () => [
         {
           _id: '63865750c839dbaacd8116e1',
           title: 'The Journey About How I Fixed a Bug in the Node.js Core That Affected Thousands of Packages'

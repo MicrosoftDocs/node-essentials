@@ -29,7 +29,8 @@ describe('boilerplate with mock', () => {
     it('should <do something> if <situation is present>', async () => {
 
         // Replace the original implementation with a mock, returning 2
-        mock.method(MyService, "myFunction").mock.mockImplementation(async () => Promise.resolve(2))
+        const m = mock.method(MyService, "myFunction").mock;
+        m.mockImplementation(async () => Promise.resolve(2))
 
 
         // Test the function, but get the mocked value

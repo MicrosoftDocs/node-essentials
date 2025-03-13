@@ -20,7 +20,8 @@ describe('boilerplate with mock', () => {
   
     it('should <do something> if <situation is present>', async () => {
 
-        mock.method(MyService, "getUniqueId").mock.mockImplementation(() => {
+        const m = mock.method(MyService, "getUniqueId");
+        m.mock.mockImplementation(() => {
             // Replace the original implementation with a mock result
             
             // return fake guid
