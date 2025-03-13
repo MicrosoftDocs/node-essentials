@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rm -rf dist && tsc",
-    "test": "npm run build && node --test --no-experimental-strip-types --experimental-test-coverage --experimental-test-module-mocks",
+    "test": "npm run build && NODE_DEBUG_NATIVE=node:test NODE_DEBUG=node:test node --test --experimental-test-coverage --experimental-test-module-mocks",
     "test:dev": "npm run build && node --watch --test test/ "
   },
   "directories": {

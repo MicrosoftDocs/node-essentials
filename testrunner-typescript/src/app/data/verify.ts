@@ -1,5 +1,5 @@
 // input-verified.ts
-import { validateRawInput } from './model.ts';
+import { validateRawInput } from './model';
 
 export default class Verfiy {
   static inputVerified(doc: any): boolean {

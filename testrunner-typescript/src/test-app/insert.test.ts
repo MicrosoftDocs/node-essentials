@@ -1,21 +1,21 @@
 // insertDocument.test.ts
+import { describe, it, beforeEach, mock } from 'node:test';
 import assert from 'node:assert';
-import { beforeEach, describe, it, mock } from 'node:test';
-import { Container } from '../data/connect-to-cosmos.ts';
-import { createTestInputAndResult } from '../data/fake-data.ts';
+import { Container } from '../app/data/connect-to-cosmos';
+import { createTestInputAndResult } from '../app/data/fake-data';
 import type {
   DbDocument,
   DbError,
   RawInput
-} from '../data/model.ts';
+} from '../app/data/model';
 import {
   isDbError,
   isVerificationErrors
-} from '../data/model.ts';
+} from '../app/data/model';
 // Instead of jest.mock, import the whole module to override functions as needed.
-import CosmosConnector from '../data/connect-to-cosmos.ts';
-import Verify from '../data/verify.ts';
-import { insertDocument } from './insert.ts';
+import Verify from '../app/data/verify';
+import CosmosConnector from '../app/data/connect-to-cosmos';
+import { insertDocument } from '../app/lib/insert';
 
 // --- Test suite for insertDocument ---
 describe('Insert into db', () => {

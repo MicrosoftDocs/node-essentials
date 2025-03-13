@@ -1,18 +1,18 @@
 // insertDocument.ts
 import { Container } from '../data/connect-to-cosmos';
-import type {   
+import {
   DbDocument,
-  DbError, 
+  DbError,
   RawInput,
-  VerificationErrors, 
+  VerificationErrors,
 } from '../data/model';
-import Verify from '../data/verify';
+import { inputVerified } from '../data/verify';
 
 export async function insertDocument(
   container: Container,
   doc: RawInput,
 ): Promise<DbDocument | DbError | VerificationErrors> {
-  const isVerified: boolean = Verify.inputVerified(doc);
+  const isVerified: boolean = inputVerified(doc);
 
   if (!isVerified) {
     return { message: 'Verification failed' } as VerificationErrors;

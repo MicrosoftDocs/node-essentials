@@ -7,7 +7,7 @@ import {
   } from 'node:test'
 import assert from 'node:assert';
 
-import CosmosConnector from '../../src/app/data/connect-to-cosmos.ts';
+import CosmosConnector from '../app/data/connect-to-cosmos';
 
 describe('boilerplate with mock 2', () => {
     beforeEach(() =>{
