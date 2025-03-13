@@ -1,0 +1,13 @@
+{
+  "name": "testrunner",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type":"module",
+  "scripts": {
+    "test": "node --test",
+    "test:dev": "node --watch --test test/ "
+  },
+  "directories": {
+    "test": "test"
+  }
+}
