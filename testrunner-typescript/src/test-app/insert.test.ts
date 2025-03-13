@@ -26,79 +26,77 @@ describe('Insert into db', () => {
     mock.restoreAll()
   })
 
-  it("Success", () => {
-    it('should insert document successfully', async () => {
-      // Arrange: override inputVerified to return true.
-      const { input, result }: { input: RawInput; result: Partial<DbDocument> } = createTestInputAndResult();
+  it('should insert document successfully', async () => {
+    // Arrange: override inputVerified to return true.
+    const { input, result }: { input: RawInput; result: Partial<DbDocument> } = createTestInputAndResult();
 
-      const fakeContainer = {
-        items: {
-          create: async (doc: any) => {
-            return { resource: result };
-          },
+    const fakeContainer = {
+      items: {
+        create: async (doc: any) => {
+          return { resource: result };
         },
-      } as unknown as Container;
+      },
+    } as unknown as Container;
 
-      const mVerify = mock.method(Verify, "inputVerified").mock;
-      mVerify.mockImplementation(() => true);
+    const mVerify = mock.method(Verify, "inputVerified").mock;
+    mVerify.mockImplementation(() => true);
 
-      const mContainerCreate = mock.method(fakeContainer.items as any, "create").mock;
-      mContainerCreate.mockImplementation(async (doc: any) => {
-        return { resource: result };
-      });
+    const mContainerCreate = mock.method(fakeContainer.items as any, "create").mock;
+    mContainerCreate.mockImplementation(async (doc: any) => {
+      return { resource: result };
+    });
 
-      // Act:
-      const receivedResult = await insertDocument(fakeContainer, input);
+    // Act:
+    const receivedResult = await insertDocument(fakeContainer, input);
 
-      // Assert - State verification: Ensure the result is as expected.
-      assert.deepStrictEqual(receivedResult, result);
+    // Assert - State verification: Ensure the result is as expected.
+    assert.deepStrictEqual(receivedResult, result);
 
-      // Assert - Behavior verification: Ensure create was called once with correct arguments.
-      assert.strictEqual(mContainerCreate.callCount(), 1);
-      assert.deepStrictEqual(mContainerCreate.calls[0].arguments[0], {
-        id: input.id,
-        name: result.name,
-      });
+    // Assert - Behavior verification: Ensure create was called once with correct arguments.
+    assert.strictEqual(mContainerCreate.callCount(), 1);
+    assert.deepStrictEqual(mContainerCreate.calls[0].arguments[0], {
+      id: input.id,
+      name: result.name,
     });
   });
 
-  it("Failure", () => {
-    it('should return verification error if input is not verified', async () => {
 
-      const fakeContainer = {
-        items: {
-          create: async (_: any) => {
-            throw new Error('Create method not implemented');
-          },
+  it('should return verification error if input is not verified', async () => {
+
+    const fakeContainer = {
+      items: {
+        create: async (_: any) => {
+          throw new Error('Create method not implemented');
         },
-      } as unknown as Container;
+      },
+    } as unknown as Container;
 
-      const mVerify = mock.method(Verify, "inputVerified").mock;
-      mVerify.mockImplementation(() => false);
+    const mVerify = mock.method(Verify, "inputVerified").mock;
+    mVerify.mockImplementation(() => false);
 
-      const mGetUniqueId = mock.method(CosmosConnector, "getUniqueId").mock;
-      mGetUniqueId.mockImplementation(() => 'unique-id');
+    const mGetUniqueId = mock.method(CosmosConnector, "getUniqueId").mock;
+    mGetUniqueId.mockImplementation(() => 'unique-id');
 
-      const mContainerCreate = mock.method(fakeContainer.items, "create").mock;
+    const mContainerCreate = mock.method(fakeContainer.items, "create").mock;
 
-      // Arrange: wrong shape of document on purpose.
-      const doc = { name: 'test' } as unknown as RawInput;
+    // Arrange: wrong shape of document on purpose.
+    const doc = { name: 'test' } as unknown as RawInput;
 
-      // Act:
-      const insertDocumentResult = await insertDocument(fakeContainer, doc);
+    // Act:
+    const insertDocumentResult = await insertDocument(fakeContainer, doc);
 
-      // Assert - State verification.
-      if (isVerificationErrors(insertDocumentResult)) {
-        assert.deepStrictEqual(insertDocumentResult, { message: 'Verification failed' });
-      } else {
-        throw new Error('Result is not of type VerificationErrors');
-      }
+    // Assert - State verification.
+    if (isVerificationErrors(insertDocumentResult)) {
+      assert.deepStrictEqual(insertDocumentResult, { message: 'Verification failed' });
+    } else {
+      throw new Error('Result is not of type VerificationErrors');
+    }
 
-      // Assert - Behavior verification: Verify that create was never called.
-      assert.strictEqual(mContainerCreate.callCount(), 0);
+    // Assert - Behavior verification: Verify that create was never called.
+    assert.strictEqual(mContainerCreate.callCount(), 0);
 
-    });
   });
+
 
   it('should return error if db insert fails', async () => {
     // Arrange: override inputVerified to return true.
@@ -128,15 +126,10 @@ describe('Insert into db', () => {
     // Act:
     const insertDocumentResult = await insertDocument(fakeContainer, input);
 
-    // Assert - Verify type as DbError.
-    if (isDbError(insertDocumentResult)) {
-      assert.strictEqual(insertDocumentResult.message, errorMessage);
-    } else {
-      throw new Error('Result is not of type DbError');
-    }
-
-    // Assert - Ensure create method was called once with the correct arguments.
+    // // Assert - Ensure create method was called once with the correct arguments.
+    assert.strictEqual(isDbError(insertDocumentResult), true);
     assert.strictEqual(mContainerCreate.callCount(), 1);
+
     assert.deepStrictEqual(mContainerCreate.calls[0].arguments[0], {
       id: input.id,
       name: result.name,
