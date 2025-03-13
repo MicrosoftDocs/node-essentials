@@ -7,7 +7,7 @@ import {
   } from 'node:test'
 import assert from 'node:assert';
 
-import * as MyService from '../mock-function/data/connect-to-cosmos'
+import CosmosConnector from '../../src/app/data/connect-to-cosmos.ts';
 
 describe('boilerplate with mock 2', () => {
     beforeEach(() =>{
@@ -20,7 +20,7 @@ describe('boilerplate with mock 2', () => {
   
     it('should <do something> if <situation is present>', async () => {
 
-        const m = mock.method(MyService, "getUniqueId");
+        const m = mock.method(CosmosConnector, "getUniqueId");
         m.mock.mockImplementation(() => {
             // Replace the original implementation with a mock result
             
@@ -29,7 +29,7 @@ describe('boilerplate with mock 2', () => {
 
         });
 
-        const result = await MyService.getUniqueId();
+        const result = await CosmosConnector.getUniqueId();
         assert.strictEqual(result,
             '12345678-1234-1234-1234-123456789012'
         )

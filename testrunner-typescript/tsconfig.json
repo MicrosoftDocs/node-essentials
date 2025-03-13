@@ -9,6 +9,8 @@
       "outDir": "./dist",
       "rootDir": "./",
       "erasableSyntaxOnly": true,
+      "allowImportingTsExtensions": true,
+      "noEmit": true
     },
     "include": [
       "src",

@@ -1,19 +1,21 @@
 // insertDocument.test.ts
-import { describe, it, beforeEach, mock } from 'node:test';
 import assert from 'node:assert';
-import { Container } from '../data/connect-to-cosmos';
-import { createTestInputAndResult } from '../data/fake-data';
-import {
+import { beforeEach, describe, it, mock } from 'node:test';
+import { Container } from '../data/connect-to-cosmos.ts';
+import { createTestInputAndResult } from '../data/fake-data.ts';
+import type {
   DbDocument,
   DbError,
+  RawInput
+} from '../data/model.ts';
+import {
   isDbError,
-  isVerificationErrors,
-  RawInput,
-} from '../data/model';
+  isVerificationErrors
+} from '../data/model.ts';
 // Instead of jest.mock, import the whole module to override functions as needed.
-import * as verifyModule from '../data/verify';
-import * as dbModule from '../data/connect-to-cosmos';
-import { insertDocument } from './insert';
+import CosmosConnector from '../data/connect-to-cosmos.ts';
+import Verify from '../data/verify.ts';
+import { insertDocument } from './insert.ts';
 
 // --- Test suite for insertDocument ---
 describe('Insert into db', () => {
@@ -24,7 +26,7 @@ describe('Insert into db', () => {
     mock.restoreAll()
   })
 
-  test("Success", () => {
+  it("Success", () => {
     it('should insert document successfully', async () => {
       // Arrange: override inputVerified to return true.
       const { input, result }: { input: RawInput; result: Partial<DbDocument> } = createTestInputAndResult();
@@ -37,7 +39,7 @@ describe('Insert into db', () => {
         },
       } as unknown as Container;
 
-      const mVerify = mock.method(verifyModule, "inputVerified").mock;
+      const mVerify = mock.method(Verify, "inputVerified").mock;
       mVerify.mockImplementation(() => true);
 
       const mContainerCreate = mock.method(fakeContainer.items as any, "create").mock;
@@ -60,7 +62,7 @@ describe('Insert into db', () => {
     });
   });
 
-  test("Failure", () => {
+  it("Failure", () => {
     it('should return verification error if input is not verified', async () => {
 
       const fakeContainer = {
@@ -71,10 +73,10 @@ describe('Insert into db', () => {
         },
       } as unknown as Container;
 
-      const mVerify = mock.method(verifyModule, "inputVerified").mock;
+      const mVerify = mock.method(Verify, "inputVerified").mock;
       mVerify.mockImplementation(() => false);
 
-      const mGetUniqueId = mock.method(dbModule, "getUniqueId").mock;
+      const mGetUniqueId = mock.method(CosmosConnector, "getUniqueId").mock;
       mGetUniqueId.mockImplementation(() => 'unique-id');
 
       const mContainerCreate = mock.method(fakeContainer.items, "create").mock;
@@ -111,7 +113,7 @@ describe('Insert into db', () => {
       },
     } as unknown as Container;
 
-    const mVerify = mock.method(verifyModule, "inputVerified").mock;
+    const mVerify = mock.method(Verify, "inputVerified").mock;
     mVerify.mockImplementation(() => true);
 
     const mContainerCreate = mock.method(fakeContainer.items, "create").mock;

@@ -3,28 +3,25 @@ export interface DbDocument {
   id: string;
   name: string;
 }
-
 export interface DbError {
   message: string;
   code: number;
 }
-export function isDbError(error: any): error is DbError {
-  return 'message' in error && 'code' in error;
-}
-
 export interface VerificationErrors {
   message: string;
 }
-export function isVerificationErrors(error: any): error is VerificationErrors {
-  return 'message' in error;
-}
-
 export interface RawInput {
   id: string;
   first: string;
   last: string;
 }
 
+export function isDbError(error: any): error is DbError {
+  return 'message' in error && 'code' in error;
+}
+export function isVerificationErrors(error: any): error is VerificationErrors {
+  return 'message' in error;
+}
 export function validateRawInput(input: any): string[] {
   const errors: string[] = [];
 
