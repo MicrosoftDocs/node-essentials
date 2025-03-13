@@ -24,7 +24,7 @@ function someTestFunction(db: FakeDatabase, key: string, value: any): any {
   return db.get(key);
 }
 
-describe('Test Fake in mem db', () => {
+describe('In-Mem DB', () => {
   let fakeDb: FakeDatabase;
   let testKey: string;
   let testValue: any;

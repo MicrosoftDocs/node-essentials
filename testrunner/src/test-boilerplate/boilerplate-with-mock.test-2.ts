@@ -7,9 +7,9 @@ import {
   } from 'node:test'
 import assert from 'node:assert';
 
-import * as MyService from '../../data/connect-to-cosmos'
+import * as MyService from '../mock-function/data/connect-to-cosmos'
 
-describe('boilerplate with mock', () => {
+describe('boilerplate with mock 2', () => {
     beforeEach(() =>{
         // Setup required before each test
         mock.restoreAll()

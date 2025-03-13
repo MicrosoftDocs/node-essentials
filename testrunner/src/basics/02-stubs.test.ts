@@ -60,7 +60,6 @@ describe('Stub Test Suite', () => {
     const result = await run({ limit: 1 })
     const expected = `[0] id: 63865750c839dbaacd8116e1, title: The Journey About How I Fixed a Bug in the Node.js Core That Affected Thousands of Packages`
 
-    // TS2339: Property 'mock' does not exist on type 
     assert.deepStrictEqual(m.callCount(), 1)
     const calls = m.calls
 

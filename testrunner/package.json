@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
-    "test": "node --test",
-    "test:dev": "node --watch --test test/ "
+    "build": "rm -rf dist && tsc",
+    "test": "npm run build && node --test",
+    "test:dev": "npm run build && node --watch --test test/ "
   },
   "directories": {
     "test": "test"
