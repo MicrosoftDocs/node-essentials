@@ -7,7 +7,7 @@ import {
   } from 'node:test'
 import assert from 'node:assert';
 
-import * as MyService from '../../src/data/connect-to-cosmos'
+import * as MyService from '../../data/connect-to-cosmos'
 
 describe('boilerplate with mock', () => {
     beforeEach(() =>{
