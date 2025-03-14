@@ -16,6 +16,12 @@
     "nodejs-intro",
     "nodejs-intro-esm",
     "nodejs-route",
-    "unit-testing"
-  ]
+    "test-with-node-testrunner",
+    "test-with-vitest",
+    "test-with-jest"
+  ],
+  "scripts":{
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces"
+  }
 }
