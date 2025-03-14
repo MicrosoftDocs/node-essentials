@@ -25,7 +25,6 @@ jest.mock('../data/verify', () => ({
 }));
 
 describe('SDK', () => {
-  // Mock the Cosmo DB Container object
   let mockContainer: jest.Mocked<Container>;
 
   beforeEach(() => {

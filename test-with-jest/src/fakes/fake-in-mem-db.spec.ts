@@ -21,7 +21,6 @@ function someTestFunction(db: FakeDatabase, key: string, value: any): any {
   return db.get(key);
 }
 
-// Jest test suite
 describe('someTestFunction', () => {
   let fakeDb: FakeDatabase;
   let testKey: string;
@@ -36,8 +35,6 @@ describe('someTestFunction', () => {
       lastUpdated: new Date().toISOString(),
     };
 
-    // Spy on the save method
-    jest.spyOn(fakeDb, 'save');
   });
 
   afterEach(() => {
@@ -46,7 +43,10 @@ describe('someTestFunction', () => {
   });
 
   test('should save and return the correct value', () => {
-    // Perform test
+    // Spy on the save method
+    jest.spyOn(fakeDb, 'save');
+
+    // Call the function under test.
     const result = someTestFunction(fakeDb, testKey, testValue);
 
     // Verify state
