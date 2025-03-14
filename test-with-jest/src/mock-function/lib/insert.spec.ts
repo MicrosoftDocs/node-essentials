@@ -1,12 +1,14 @@
 // insertDocument.test.ts
 import { Container } from '../data/connect-to-cosmos';
 import { createTestInputAndResult } from '../data/fake-data';
-import {
+import type {
   DbDocument,
   DbError,
+  RawInput
+} from '../data/model';
+import {
   isDbError,
   isVerificationErrors,
-  RawInput,
 } from '../data/model';
 import { inputVerified } from '../data/verify';
 import { insertDocument } from './insert';

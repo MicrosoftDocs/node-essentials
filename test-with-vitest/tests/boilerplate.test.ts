@@ -1,8 +1,9 @@
-import { describe, it, beforeEach, afterEach, expect } from 'vitest';
+import { describe, it, beforeEach, afterEach, expect, vi } from 'vitest';
 
 describe('boilerplate', () => {
   beforeEach(() => {
     // Setup required before each test
+    vi.restoreAllMocks();
   });
 
   afterEach(() => {
