@@ -31,6 +31,8 @@ describe('insertDocument', () => {
     // Prepare test data
     const { input, result }: { input: RawInput; result: Partial<DbDocument> } =
       createTestInputAndResult();
+    const inputVerifiedMock = vi.spyOn(Verify, 'inputVerified');
+    inputVerifiedMock.mockReturnValue(true);
 
     // Set up the mocked return value.
     // Here we "cast" our minimal object to satisfy the expected type ItemResponse<DbDocument>.
@@ -52,6 +54,7 @@ describe('insertDocument', () => {
     expect(insertDocumentResult).toEqual(result);
 
     // Validate that create was called once with the proper arguments.
+    expect(inputVerifiedMock).toHaveBeenCalledTimes(1);
     expect(fakeContainer.items.create).toHaveBeenCalledTimes(1);
     expect(
       (fakeContainer.items.create as unknown as ReturnType<typeof vi.fn>).mock.calls[0][0]
@@ -63,7 +66,8 @@ describe('insertDocument', () => {
   
   it('should return verification error if input is not verified', async () => {
     // Arrange – mock the input verification function to return false.
-    vi.mocked(Verify.inputVerified).mockReturnValue(false);
+    const inputVerifiedMock = vi.spyOn(Verify, 'inputVerified');
+    inputVerifiedMock.mockReturnValue(false);
 
     const doc = { name: 'test' };
 
@@ -84,5 +88,6 @@ describe('insertDocument', () => {
 
     // Assert – behavior verification: ensure create method was not called.
     expect(fakeContainer.items.create).not.toHaveBeenCalled();
+    expect(inputVerifiedMock).toHaveBeenCalledTimes(1);
   });
 });
