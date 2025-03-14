@@ -1,5 +1,7 @@
+// insertDocument.test.ts
 import { describe, it, beforeEach, expect, vi } from 'vitest';
-import { ConflictResolutionMode, type Container, type ItemResponse } from '@azure/cosmos';
+import type { Container, ItemResponse } from '@azure/cosmos';
+
 import { insertDocument } from '../src/lib/insert.js';
 import { createTestInputAndResult } from '../src/data/fake-data.js';
 import type {
@@ -18,7 +20,9 @@ describe('insertDocument', () => {
   let fakeContainer: Container;
 
   beforeEach(() => {
+    // Clear all mocks before each test
     vi.restoreAllMocks();
+
     // Create a fake container with a mocked `create` function
     fakeContainer = {
       items: {
@@ -27,7 +31,34 @@ describe('insertDocument', () => {
     } as unknown as Container;
   });
 
-  it('should insert document successfully and validate the create call', async () => {
+  it('should return verification error if input is not verified', async () => {
+    // Arrange – mock the input verification function to return false.
+    const inputVerifiedMock = vi.spyOn(Verify, 'inputVerified');
+    inputVerifiedMock.mockReturnValue(false);
+
+    const doc = { name: 'test' };
+
+    // Act – call the function under test.
+    const insertDocumentResult = await insertDocument(
+      fakeContainer,
+      doc as unknown as RawInput,
+    );
+
+    // Assert – state verification: result should indicate verification failure.
+    if (isVerificationErrors(insertDocumentResult)) {
+      expect(insertDocumentResult).toEqual({
+        message: 'Verification failed',
+      } as unknown as DbError);
+    } else {
+      throw new Error('Result is not of type VerificationErrors');
+    }
+
+    // Assert – behavior verification: ensure create method was not called.
+    expect(fakeContainer.items.create).not.toHaveBeenCalled();
+    expect(inputVerifiedMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('should insert document successfully', async () => {
     // Prepare test data
     const { input, result }: { input: RawInput; result: Partial<DbDocument> } =
       createTestInputAndResult();
@@ -64,32 +95,7 @@ describe('insertDocument', () => {
     });
   });
   
-  it('should return verification error if input is not verified', async () => {
-    // Arrange – mock the input verification function to return false.
-    const inputVerifiedMock = vi.spyOn(Verify, 'inputVerified');
-    inputVerifiedMock.mockReturnValue(false);
 
-    const doc = { name: 'test' };
-
-    // Act – call the function under test.
-    const insertDocumentResult = await insertDocument(
-      fakeContainer,
-      doc as unknown as RawInput,
-    );
-
-    // Assert – state verification: result should indicate verification failure.
-    if (isVerificationErrors(insertDocumentResult)) {
-      expect(insertDocumentResult).toEqual({
-        message: 'Verification failed',
-      } as unknown as DbError);
-    } else {
-      throw new Error('Result is not of type VerificationErrors');
-    }
-
-    // Assert – behavior verification: ensure create method was not called.
-    expect(fakeContainer.items.create).not.toHaveBeenCalled();
-    expect(inputVerifiedMock).toHaveBeenCalledTimes(1);
-  });
 
   it('should return error if db insert fails', async () => {
     // Arrange – create input and expected result data.
@@ -109,7 +115,6 @@ describe('insertDocument', () => {
 
     // Act – call the function under test.
     const insertDocumentResult = await insertDocument(fakeContainer, input);
-    console.log(insertDocumentResult);
 
     // Assert – verify result is of type DbError.
     if (isDbError(insertDocumentResult)) {

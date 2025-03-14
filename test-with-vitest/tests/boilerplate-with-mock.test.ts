@@ -1,3 +1,4 @@
+// boilerplate-with-mock.test.ts
 import { describe, it, beforeEach, afterEach, expect, vi } from 'vitest';
 
 const result = 1;
@@ -19,11 +20,13 @@ describe('boilerplate with mock', () => {
   });
 
   it('should <do something> if <situation is present>', async () => {
-    // Replace the original implementation with a mock, returning 2.
+    // Arrange: Replace the original implementation with a mock, returning 2.
     vi.spyOn(MyService, 'myFunction').mockResolvedValue(2);
 
-    // Test the function: it should now return the mocked value.
+    // Act: Test the function: it should now return the mocked value.
     const resultVal = await MyService.myFunction();
+
+    // Assert
     expect(resultVal).toBe(2);
   });
 });

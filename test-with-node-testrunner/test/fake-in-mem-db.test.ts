@@ -1,3 +1,4 @@
+// fake-in-mem-db.spec.ts
 import { describe, it, beforeEach, afterEach, mock } from 'node:test';
 import assert from 'node:assert';
 
@@ -56,7 +57,7 @@ describe('In-Mem DB', () => {
     assert.strictEqual(result.last, 'Jones');
     assert.strictEqual(result.lastUpdated, testValue.lastUpdated);
 
-    // Verify behavior using the spy.
+    // Verify behavior
     assert.strictEqual(saveSpy.callCount(), 1);
     const calls = saveSpy.calls;
     assert.deepStrictEqual(calls[0].arguments, [testKey, testValue]);

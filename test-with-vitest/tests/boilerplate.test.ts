@@ -3,7 +3,6 @@ import { describe, it, beforeEach, afterEach, expect, vi } from 'vitest';
 describe('boilerplate', () => {
   beforeEach(() => {
     // Setup required before each test
-    vi.restoreAllMocks();
   });
 
   afterEach(() => {
@@ -20,8 +19,5 @@ describe('boilerplate', () => {
     // Assert
     // - check the state: result returned from function
     // - check the behavior: dependency function calls
-
-    // Example assertion:
-    expect(true).toBe(true);
   });
 });
