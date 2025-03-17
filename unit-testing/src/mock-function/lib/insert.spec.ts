@@ -22,7 +22,7 @@ jest.mock('../data/verify', () => ({
   inputVerified: jest.fn(),
 }));
 
-describe('SDK', () => {
+describe('insertDocument', () => {
   // Mock the Cosmo DB Container object
   let mockContainer: jest.Mocked<Container>;
 

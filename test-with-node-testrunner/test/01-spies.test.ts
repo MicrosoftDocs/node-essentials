@@ -15,6 +15,11 @@ function run({fn, times}){
 describe('Spies', () => {
     it('should verify calls in a mock', () => {
         const spy = mock.fn();
+        spy.mock.mockImplementation((arg) => {
+            console.log(arg);
+        });
+
+
         run({fn: spy, times: 3});
 
         assert.strictEqual(spy.mock.callCount(), 3);

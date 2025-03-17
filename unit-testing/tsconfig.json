@@ -6,7 +6,7 @@
       "esModuleInterop": true,                  // Enables emit interoperability between CommonJS and ES Modules
       "forceConsistentCasingInFileNames": true, // Disallow inconsistently-cased references to the same file
       "types": ["jest", "node"],                // Specify type package
-      "outDir": "dist",
-      "rootDir": "src",
+      "outDir": "./dist",
+      "rootDir": "./src",
     },
   }

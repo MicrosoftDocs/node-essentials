@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { it, expect, vi } from 'vitest';
 
 function run({ fn, times }: { fn: (arg: { current: number }) => void; times: number }) {
   for (let i = 0; i < times; i++) {
