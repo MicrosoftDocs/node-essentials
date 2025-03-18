@@ -5,7 +5,8 @@
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bullseye",
 	"features": {
-		"ghcr.io/devcontainers-contrib/features/npm-package:1": {}
+		"ghcr.io/devcontainers-contrib/features/npm-package:1": {},
+		"ghcr.io/devcontainers/features/azure-cli:1": {}
 	},
 	"customizations": {
 		"vscode": {
