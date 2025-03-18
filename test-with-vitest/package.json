@@ -13,13 +13,13 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@vitest/coverage-istanbul": "^3.0.8",
     "vitest": "^3.0.8"
   },
   "dependencies": {
     "@azure/cosmos": "^4.1.0",
     "@azure/identity": "^4.4.1",
-    "@faker-js/faker": "^8.4.1",
     "dotenv": "^16.4.5",
     "uuid": "^10.0.0"
   }

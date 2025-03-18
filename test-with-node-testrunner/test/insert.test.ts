@@ -2,21 +2,21 @@
 import { describe, it, beforeEach, mock } from 'node:test';
 import assert from 'node:assert';
 
-import { Container } from '../src/data/connect-to-cosmos';
-import { createTestInputAndResult } from '../src/data/fake-data';
+import { Container } from '../src/data/connect-to-cosmos.js';
+import { createTestInputAndResult } from '../src/data/fake-data.js';
 import type {
   DbDocument,
   DbError,
   RawInput,
-} from '../src/data/model';
+} from '../src/data/model.js';
 import {
   isDbError,
   isVerificationErrors,
-} from '../src/data/model';
+} from '../src/data/model.js';
 
-import Verify from '../src/data/verify';
-import CosmosConnector from '../src/data/connect-to-cosmos';
-import { insertDocument } from '../src/lib/insert';
+import Verify from '../src/data/verify.js';
+import CosmosConnector from '../src/data/connect-to-cosmos.js';
+import { insertDocument } from '../src/lib/insert.js';
 
 
 describe('SDK', () => {

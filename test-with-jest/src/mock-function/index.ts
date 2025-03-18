@@ -3,15 +3,12 @@ import { createTestInput } from './data/fake-data';
 import { DbDocument, DbError, VerificationErrors } from './data/model';
 import { insertDocument } from './lib/insert';
 
-async function main(): Promise<DbDocument | DbError | VerificationErrors> {
+try {
   const container = await connectToContainer();
   const input = createTestInput();
-  return await insertDocument(container, input);
+  const result = await insertDocument(container, input);
+  console.log(result);
+} catch (error) {
+  console.error(error);
+  process.exit(1);
 }
-
-main()
-  .then((doc) => console.log(doc))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });

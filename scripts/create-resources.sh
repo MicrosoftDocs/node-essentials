@@ -23,8 +23,8 @@ printf "Random String: %s\n" "$RANDOM_STRING"
 
 SUBSCRIPTION_ID=$(az account show --query id -o tsv)
 LOCATION="eastus"
-RESOURCE_GROUP_NAME="cosmosdb-rg-$RANDOM_STRING"
-COSMOS_DB_RESOURCE_NAME="cosmosdb-$RANDOM_STRING"
+RESOURCE_GROUP_NAME="sdk-test-cosmosdb-rg-$RANDOM_STRING"
+COSMOS_DB_RESOURCE_NAME="sdk-test-cosmosdb-$RANDOM_STRING"
 PRINCIPAL_ID=$(az ad signed-in-user show --query id -o tsv)
 
 # Create a unique resource group and cosmos db name using a random suffix.
@@ -46,7 +46,7 @@ az cosmosdb create \
     --subscription "$SUBSCRIPTION_ID" \
     --resource-group "$RG" \
     --name "$RESOURCE_NAME" \
-    --kind MongoDB \
+    --kind GlobalDocumentDB \
     --locations regionName="$LOCATION" failoverPriority=0 isZoneRedundant=False
 printf "Cosmos DB account created\n"
 
@@ -61,19 +61,47 @@ printf "Cosmos DB Endpoint: %s\n" "$COSMOS_DB_ENDPOINT"
 
 # Append the endpoint to the .env file if not already populated
 echo "COSMOS_DB_ENDPOINT=$COSMOS_DB_ENDPOINT" >> .env
-
 echo "Cosmos DB Endpoint: $COSMOS_DB_ENDPOINT"
 
-# Dynamically fetch the role definition id for "Cosmos DB Operator"
-ROLE_DEFINITION_ID=$(az role definition list --name "Cosmos DB Operator" --query "[0].id" -o tsv)
-printf "Role Definition ID: %s\n" "$ROLE_DEFINITION_ID"
 
+# --------------------------------------------------------------------------
+# Create a Cosmos DB SQL database and container, and update .env with their values
 
-printf "Pricipal ID: %s\n" "$PRINCIPAL_ID"
+# Set database and container names
+DB_NAME="db-$RANDOM_STRING"
+CONTAINER_NAME="container-$RANDOM_STRING"
+
+# Create a database (using throughput of 400 RU/s as an example)
+az cosmosdb sql database create \
+    --account-name "$RESOURCE_NAME" \
+    --name "$DB_NAME" \
+    --resource-group "$RG" \
+    --subscription "$SUBSCRIPTION_ID" \
+    --throughput 400
+echo "COSMOS_DATABASE_NAME=$DB_NAME" >> .env
+printf "Cosmos DB SQL database '%s' created\n" "$DB_NAME"
+
+# Create a container (using throughput of 400 RU/s as an example)
+az cosmosdb sql container create \
+    --account-name "$RESOURCE_NAME" \
+    --database-name "$DB_NAME" \
+    --name "$CONTAINER_NAME" \
+    --partition-key-path "/name" \
+    --resource-group "$RG" \
+    --subscription "$SUBSCRIPTION_ID" \
+    --throughput 400
+echo "COSMOS_CONTAINER_NAME=$CONTAINER_NAME" >> .env
+printf "Cosmos DB SQL container '%s' created\n" "$CONTAINER_NAME"
+
+printf "Database and container names appended to .env\n"
+--------------------------------------------------------------------------
+
+# Role definition id for "Cosmos DB Operator"
 
 # Create a role assignment using the fetched role definition.
-az role assignment create \
-    --assignee "$PRINCIPAL_ID" \
-    --role "$ROLE_DEFINITION_ID" \
-    --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RG"
-printf "Role assignment created\n"
+az cosmosdb sql role assignment create \
+    --resource-group "$RG" \
+    --account-name "$RESOURCE_NAME" \
+    --role-definition-id "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RG/providers/Microsoft.DocumentDB/databaseAccounts/$RESOURCE_NAME/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002" \
+    --principal-id "$PRINCIPAL_ID" \
+    --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RG/providers/Microsoft.DocumentDB/databaseAccounts/$RESOURCE_NAME"
