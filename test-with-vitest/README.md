@@ -2,6 +2,8 @@
 
 This subfolder is the source code for the [How to Test Azure SDK Integration in JavaScript Applications](https://learn.microsoft.com/azure/developer/javascript/sdk/test-sdk-integration). The purpose is to demonstrate unit test mocks for the Azure SDK for JavaScript. These specific examples use Azure Cosmos DB. 
 
+Use Azure CLI to create Cosmos DB resource if you intend to insert a document with the application code against the cloud resource. [Script](../scripts/create-cosmos-db-resources.sh)
+
 ## To run the test
 
 1. `npm install`
