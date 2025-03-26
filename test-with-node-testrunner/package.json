@@ -1,0 +1,28 @@
+{
+  "name": "test-with-node-testrunner",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "prebuild": "npm run format && npm run lint",
+    "build": "tsc",
+    "lint": "eslint \"./src/**/*.ts\" --fix",
+    "format": "prettier --write './**/*.{ts,tsx}",
+    "test": "npm run build && node --test --experimental-test-coverage --experimental-test-module-mocks --trace-exit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "@typescript-eslint/eslint-plugin": "^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jest": "^28.8.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.4",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@azure/cosmos": "^4.1.0",
+    "@azure/identity": "^4.4.1",
+    "dotenv": "^16.4.5"
+  }
+}

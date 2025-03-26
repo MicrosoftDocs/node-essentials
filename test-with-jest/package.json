@@ -1,0 +1,36 @@
+{
+  "name": "test-with-jest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "clear": "rm -rf dist && rm -rf coverage",
+    "prestart": "npm run build",
+    "start": "node dist/mock-function/index.js",
+    "test": "npm run build && npm run test:jest",
+    "test:jest": "jest --detectOpenHandles dist --coverage",
+    "prebuild": "npm run format && npm run lint",
+    "build": "tsc",
+    "lint": "eslint \"./src/**/*.ts\" --fix",
+    "format": "prettier --write './src/**/*.{ts,tsx}"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@azure/cosmos": "^4.1.0",
+    "@azure/identity": "^4.4.1",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^22.4.0",
+    "@typescript-eslint/eslint-plugin": "^8.2.0",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jest": "^28.8.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.2.4",
+    "typescript": "^5.5.4"
+  }
+}

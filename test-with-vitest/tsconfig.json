@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ESNext", // Specify ECMAScript target version
+    "module": "NodeNext", // Specify module code generation
+    "strict": true, // Enable all strict type-checking options
+    "esModuleInterop": true, // Enables emit interoperability between CommonJS and ES Modules
+    "noImplicitAny": false, // Enable error reporting for expressions and declarations with an implied 'any' type
+    "forceConsistentCasingInFileNames": true, // Disallow inconsistently-cased references to the same file
+    "outDir": "./dist",
+    "rootDir": "./",
+    "erasableSyntaxOnly": true,
+  },
+  "include": ["src", "tests"],
+  "exclude": [
+    "node_modules"
+  ]
+}

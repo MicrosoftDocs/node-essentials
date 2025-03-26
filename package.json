@@ -15,6 +15,13 @@
     "nodejs-http",
     "nodejs-intro",
     "nodejs-intro-esm",
-    "nodejs-route"
-  ]
+    "nodejs-route",
+    "test-with-node-testrunner",
+    "test-with-vitest",
+    "test-with-jest"
+  ],
+  "scripts":{
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces"
+  }
 }
