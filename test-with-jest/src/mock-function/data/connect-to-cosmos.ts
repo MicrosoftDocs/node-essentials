@@ -3,7 +3,7 @@
 import { Container, CosmosClient } from '@azure/cosmos';
 import { DefaultAzureCredential } from '@azure/identity';
 import 'dotenv/config';
-import { v4 as uuidv4 } from 'uuid';
+import { randomUUID } from 'crypto';
 
 export { Container };
 
@@ -32,5 +32,5 @@ export async function connectToContainer(): Promise<Container> {
   return container;
 }
 export function getUniqueId(): string {
-  return uuidv4();
+  return randomUUID();
 }

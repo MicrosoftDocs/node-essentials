@@ -7,8 +7,7 @@ try {
   const input = createTestInput();
   const result = await insertDocument(container, input);
   console.log(result);
-}
-catch (error) {
+} catch (error) {
   console.error(error);
   process.exit(1);
 }

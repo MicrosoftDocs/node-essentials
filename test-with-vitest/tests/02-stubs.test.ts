@@ -1,7 +1,13 @@
 import { describe, it, beforeEach, afterEach, expect, vi } from 'vitest';
 
 class Service {
-  static async getTalks({ skip, limit }: { skip: number; limit: number }): Promise<any[]> {
+  static async getTalks({
+    skip,
+    limit,
+  }: {
+    skip: number;
+    limit: number;
+  }): Promise<any[]> {
     // Use a public API (jsonplaceholder) to retrieve posts with pagination.
     const url = `https://jsonplaceholder.typicode.com/posts?_start=${skip}&_limit=${limit}`;
     const response = await fetch(url);
@@ -35,8 +41,8 @@ describe('Stub Test Suite', () => {
     m.mockImplementation(async () => [
       {
         id: '1',
-        title: 'Sample Post'
-      }
+        title: 'Sample Post',
+      },
     ]);
 
     const result = await run({ limit: 1 });
@@ -54,7 +60,7 @@ describe('Stub Test Suite', () => {
     const responses = [
       async () => [{ id: '1', title: 'Post One' }],
       async () => [{ id: '2', title: 'Post Two' }],
-      async () => [{ id: '3', title: 'Post Three' }]
+      async () => [{ id: '3', title: 'Post Three' }],
     ];
 
     m.mockImplementation(async (args) => {

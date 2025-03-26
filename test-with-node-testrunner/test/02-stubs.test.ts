@@ -30,8 +30,8 @@ describe('Stub Test Suite', () => {
     m.mockImplementation(async () => [
       {
         id: '1',
-        title: 'Sample Post'
-      }
+        title: 'Sample Post',
+      },
     ]);
 
     const result = await run({ limit: 1 });
@@ -45,16 +45,15 @@ describe('Stub Test Suite', () => {
   });
 
   it('should stub different values for API calls', async () => {
-
     // Instead of chaining mockImplementationOnce, build a responses array.
     const m = mock.method(Service, 'getTalks').mock;
     const responses = [
       async () => [{ id: '1', title: 'Post One' }],
       async () => [{ id: '2', title: 'Post Two' }],
-      async () => [{ id: '3', title: 'Post Three' }]
+      async () => [{ id: '3', title: 'Post Three' }],
     ];
 
-    m.mockImplementation(async (args) => {
+    m.mockImplementation(async (_) => {
       // Return the next response from the array.
       const fn = responses.shift();
       return fn ? fn() : [];

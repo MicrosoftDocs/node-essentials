@@ -4,17 +4,9 @@ import type { Container, ItemResponse } from '@azure/cosmos';
 
 import { insertDocument } from '../src/lib/insert.js';
 import { createTestInputAndResult } from '../src/data/fake-data.js';
-import type {
-  DbDocument,
-  DbError,
-  RawInput
-} from '../src/data/model.js';
-import {
-  isDbError,
-  isVerificationErrors,
-} from '../src/data/model.js';
+import type { DbDocument, DbError, RawInput } from '../src/data/model.js';
+import { isDbError, isVerificationErrors } from '../src/data/model.js';
 import Verify from '../src/data/verify.js';
-
 
 describe('insertDocument', () => {
   let fakeContainer: Container;
@@ -67,7 +59,9 @@ describe('insertDocument', () => {
 
     // Set up the mocked return value.
     // Here we "cast" our minimal object to satisfy the expected type ItemResponse<DbDocument>.
-    (fakeContainer.items.create as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({
+    (
+      fakeContainer.items.create as unknown as ReturnType<typeof vi.fn>
+    ).mockResolvedValue({
       resource: result,
       // Minimal additional properties required by ItemResponse.
       item: result,
@@ -88,14 +82,13 @@ describe('insertDocument', () => {
     expect(inputVerifiedMock).toHaveBeenCalledTimes(1);
     expect(fakeContainer.items.create).toHaveBeenCalledTimes(1);
     expect(
-      (fakeContainer.items.create as unknown as ReturnType<typeof vi.fn>).mock.calls[0][0]
+      (fakeContainer.items.create as unknown as ReturnType<typeof vi.fn>).mock
+        .calls[0][0],
     ).toEqual({
       id: input.id,
       name: result.name,
     });
   });
-  
-
 
   it('should return error if db insert fails', async () => {
     // Arrange – create input and expected result data.
@@ -111,7 +104,9 @@ describe('insertDocument', () => {
       code: 500,
     };
 
-    (fakeContainer.items.create as unknown as ReturnType<typeof vi.fn>).mockRejectedValue(mockError as unknown as DbError);
+    (
+      fakeContainer.items.create as unknown as ReturnType<typeof vi.fn>
+    ).mockRejectedValue(mockError as unknown as DbError);
 
     // Act – call the function under test.
     const insertDocumentResult = await insertDocument(fakeContainer, input);
@@ -127,12 +122,11 @@ describe('insertDocument', () => {
     expect(inputVerifiedMock).toHaveBeenCalledTimes(1);
     expect(fakeContainer.items.create).toHaveBeenCalledTimes(1);
     expect(
-      (fakeContainer.items.create as unknown as ReturnType<typeof vi.fn>).mock.calls[0][0]
+      (fakeContainer.items.create as unknown as ReturnType<typeof vi.fn>).mock
+        .calls[0][0],
     ).toEqual({
       id: input.id,
       name: result.name,
     });
   });
-
-
 });

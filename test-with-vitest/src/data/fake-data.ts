@@ -1,18 +1,26 @@
-import { v4 as uuidv4 } from 'uuid';
-import { faker } from '@faker-js/faker';
 import type { DbDocument, RawInput } from './model.js';
+import { randomUUID } from 'crypto';
+
+// Predefined arrays of first and last names
+const firstNames = ['Alice', 'Bob', 'Charlie', 'Dana', 'Eve', 'Frank'];
+const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Miller'];
+
+function getRandomElement<T>(arr: T[]): T {
+  const randomIndex = Math.floor(Math.random() * arr.length);
+  return arr[randomIndex];
+}
 
 function createFixture<T>(): T {
   const result = {
-    first: faker.person.firstName(),
-    last: faker.person.lastName(),
+    first: getRandomElement(firstNames),
+    last: getRandomElement(lastNames),
   };
   return result as T;
 }
 
 export function createTestInput(): RawInput {
   const { first, last } = createFixture<RawInput>();
-  return { id: uuidv4(), first, last };
+  return { id: randomUUID(), first, last };
 }
 
 export function createTestInputAndResult(): {

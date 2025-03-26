@@ -34,12 +34,11 @@ describe('someTestFunction', () => {
       last: 'Jones',
       lastUpdated: new Date().toISOString(),
     };
-
   });
 
   afterEach(() => {
     // Clear all mocks
-    jest.clearAllMocks();
+    jest.resetAllMocks();
   });
 
   test('should save and return the correct value', () => {

@@ -1,15 +1,8 @@
 // insertDocument.test.ts
 import { Container } from '../data/connect-to-cosmos';
 import { createTestInputAndResult } from '../data/fake-data';
-import type {
-  DbDocument,
-  DbError,
-  RawInput
-} from '../data/model';
-import {
-  isDbError,
-  isVerificationErrors,
-} from '../data/model';
+import type { DbDocument, DbError, RawInput } from '../data/model';
+import { isDbError, isVerificationErrors } from '../data/model';
 import { inputVerified } from '../data/verify';
 import { insertDocument } from './insert';
 
@@ -29,7 +22,7 @@ describe('SDK', () => {
 
   beforeEach(() => {
     // Clear all mocks before each test
-    jest.clearAllMocks();
+    jest.resetAllMocks();
 
     // Mock the Cosmos DB Container create method
     mockContainer = {

@@ -8,7 +8,7 @@ jest.mock('../mock-function/data/connect-to-cosmos', () => ({
 describe('nameOfGroupOfTests', () => {
   beforeEach(() => {
     // Clear all mocks before each test
-    jest.clearAllMocks();
+    jest.resetAllMocks();
 
     // Other setup required before each test
   });
