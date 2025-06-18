@@ -14,7 +14,7 @@ async function setup(): Promise<{
 
   const blobServiceClient = new BlobServiceClient(
     `https://${accountName}.blob.core.windows.net`,
-    new DefaultAzureCredential(),
+    new DefaultAzureCredential()
   );
 
   const containers = await createContainers(blobServiceClient, 600);
@@ -24,7 +24,7 @@ async function setup(): Promise<{
 
   for (let i = 0; i < blobMax; i++) {
     const blockBlobClient = containerClient.getBlockBlobClient(
-      `blob-${uuidv4()}`,
+      `blob-${uuidv4()}`
     );
     await blockBlobClient.upload('Hello world', 11);
     console.log(`Uploaded block blob: ${blockBlobClient.name}`);
@@ -34,47 +34,55 @@ async function setup(): Promise<{
 }
 
 async function main(): Promise<void> {
-  const { blobServiceClient, containerClient } = await setup();
+  const { blobServiceClient } = await setup();
 
   // <Loop_over_data_at_specific_page>
   // Navigate to the 5th page
   const targetPage = 5;
   let currentPage = 1;
   let continuationToken: string | undefined;
-  
+
   console.log(`Navigating to page ${targetPage}...`);
-  
+
   // Iterate through pages until we reach the target page
   const iterator = blobServiceClient.listContainers().byPage();
-  
+
   while (currentPage < targetPage) {
     const pageResult = await iterator.next();
-    
+
     if (pageResult.done) {
-      console.log(`Only ${currentPage} pages available. Cannot reach page ${targetPage}.`);
+      console.log(
+        `Only ${currentPage} pages available. Cannot reach page ${targetPage}.`
+      );
       return;
     }
-    
+
     continuationToken = pageResult.value.continuationToken;
     const containerCount = pageResult.value.containerItems?.length || 0;
-    console.log(`Skipped page ${currentPage} with ${containerCount} containers`);
+    console.log(
+      `Skipped page ${currentPage} with ${containerCount} containers`
+    );
     currentPage++;
-    
+
     // If no continuation token, we've reached the end
     if (!continuationToken && currentPage < targetPage) {
-      console.log(`Only ${currentPage} pages available. Cannot reach page ${targetPage}.`);
+      console.log(
+        `Only ${currentPage} pages available. Cannot reach page ${targetPage}.`
+      );
       return;
     }
   }
-  
+
   // Get the 5th page
   const fifthPageResult = await iterator.next();
-  
+
   if (fifthPageResult.done) {
     console.log(`Page ${targetPage} not available.`);
   } else {
     const containerCount = fifthPageResult.value.containerItems?.length || 0;
-    console.log(`\nPage ${targetPage} contents (${containerCount} containers):`);
+    console.log(
+      `\nPage ${targetPage} contents (${containerCount} containers):`
+    );
     if (fifthPageResult.value.containerItems && containerCount > 0) {
       for (const container of fifthPageResult.value.containerItems) {
         console.log(`Container: ${container.name}`);
@@ -89,7 +97,7 @@ async function main(): Promise<void> {
 
 main()
   .then(() => console.log('done'))
-  .catch((error) => {
+  .catch(error => {
     console.error(error);
     process.exit(1);
   });

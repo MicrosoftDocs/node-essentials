@@ -7,7 +7,7 @@ export function setup(): BlobServiceClient {
 
   const blobServiceClient = new BlobServiceClient(
     `https://${accountName}.blob.core.windows.net`,
-    new DefaultAzureCredential(),
+    new DefaultAzureCredential()
   );
 
   return blobServiceClient;

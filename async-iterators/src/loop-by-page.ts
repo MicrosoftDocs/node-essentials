@@ -20,15 +20,14 @@ async function main(): Promise<void> {
   }
 
   // <Loop_over_data_by_page>
-  const firstPage = await blobServiceClient
-    .listContainers()
-    .byPage()
-    .next();
+  const firstPage = await blobServiceClient.listContainers().byPage().next();
 
   const continuationToken = firstPage.value.continuationToken;
 
   // The iterator also supports iteration by page.
-  for await (const page of blobServiceClient.listContainers().byPage({continuationToken})) {
+  for await (const page of blobServiceClient
+    .listContainers()
+    .byPage({ continuationToken })) {
     if (page.containerItems) {
       for (const container of page.containerItems) {
         console.log(`Container: ${container.name}`);
@@ -41,7 +40,7 @@ async function main(): Promise<void> {
 
 main()
   .then(() => console.log('done'))
-  .catch((error) => {
+  .catch(error => {
     console.error(error);
     process.exit(1);
   });
