@@ -10,7 +10,7 @@ async function main(): Promise<void> {
 
   for (let i = 0; i < containerMax; i++) {
     const containerClient = blobServiceClient.getContainerClient(
-      `container-${uuidv4()}`
+      `container-${uuidv4()}`,
     );
     await containerClient.create();
     console.log(`Created container: ${containerClient.containerName}`);
@@ -25,7 +25,7 @@ async function main(): Promise<void> {
 
 main()
   .then(() => console.log('done'))
-  .catch(error => {
+  .catch((error) => {
     console.error(error);
     process.exit(1);
   });
