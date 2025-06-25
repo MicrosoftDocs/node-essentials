@@ -2,7 +2,6 @@ import { BlobServiceClient, ContainerClient } from '@azure/storage-blob';
 import { DefaultAzureCredential } from '@azure/identity';
 import { deleteContainers } from './delete-containers.js';
 import { createContainers } from './create-containers.js';
-import { v4 as uuidv4 } from 'uuid';
 import 'dotenv/config';
 
 async function setup(): Promise<{
@@ -17,27 +16,23 @@ async function setup(): Promise<{
     new DefaultAzureCredential()
   );
 
-  const containers = await createContainers(blobServiceClient, 600);
+  const itemCount = 20;
+
+  const containers = await createContainers(blobServiceClient, itemCount);
   const containerClient = blobServiceClient.getContainerClient(containers[0]);
-
-  const blobMax = 10;
-
-  for (let i = 0; i < blobMax; i++) {
-    const blockBlobClient = containerClient.getBlockBlobClient(
-      `blob-${uuidv4()}`
-    );
-    await blockBlobClient.upload('Hello world', 11);
-    console.log(`Uploaded block blob: ${blockBlobClient.name}`);
-  }
 
   return { blobServiceClient, containerClient };
 }
-
-// return false if the operation should continue to the next page
-async function fakeProcessor(): Promise<boolean> {
+// Return true if processing should stop (operation complete)
+async function fakeProcessor(page): Promise<boolean> {
   // Simulate a long-running operation on a page of results.
   return new Promise(resolve =>
-    setTimeout(() => resolve(Math.random() < 0.5), 1000)
+    setTimeout(() => {
+      resolve(Math.random() < 0.5);
+      console.log(
+        `Processed page with ${page.containerItems.length} containers.`
+      );
+    }, 1000)
   );
 }
 
@@ -45,28 +40,58 @@ async function main(): Promise<void> {
   const { blobServiceClient } = await setup();
 
   // <Continue_paging>
-  let continuationToken: string | undefined = 'continue'; // Initialize with a value to start paging
+  console.log('Starting to process pages...');
+
   let processingComplete = false;
+  let pageNumber = 1;
 
-  while (continuationToken && !processingComplete) {
-    const page = await blobServiceClient
-      .listContainers()
-      .byPage({ continuationToken })
-      .next();
-    continuationToken = page.value.continuationToken;
+  try {
 
-    // Scenario to continue paging:
-    // Perform an operation on the current page results
-    // if the operation returns false, continue to the next page
-    processingComplete = await fakeProcessor();
+    let page = undefined;
+    let continuationToken = undefined;
+
+    do {
+      // Get a page of results
+      page = await blobServiceClient.listContainers().byPage().next();
+
+      // Get the continuation token from the current page
+      continuationToken = page?.value?.continuationToken;
+
+      console.log(
+        `Processing page ${pageNumber}, items ${page.value.containerItems?.length || 0} with continuation token: ${continuationToken || 'none'}`
+      );
+      console.log(page.value);
+
+      // Scenario to continue paging:
+      // Perform an operation on the current page results
+      // if the operation returns true, stop processing
+      processingComplete = await fakeProcessor(page.value);
+      if (processingComplete) {
+        console.log('Stopping processing.');
+        break;
+      }
+      console.log(
+        `Processing complete for page ${pageNumber++}: get next page if a continuation token exists`
+      );
+    } while (continuationToken && !processingComplete);
+
+    console.log(
+      `Finished processing. Total pages processed: ${pageNumber - 1}`
+    );
+    // </Continue_paging>
+
+    await deleteContainers(blobServiceClient);
+  } catch (error) {
+    console.error('Error during processing:', error);
+    throw error;
   }
-
-  // </Continue_paging>
-  await deleteContainers(blobServiceClient);
 }
 
 main()
-  .then(() => console.log('done'))
+  .then(() => {
+    console.log('done');
+    process.exit(0);
+  })
   .catch(error => {
     console.error(error);
     process.exit(1);

@@ -4,6 +4,7 @@ export async function deleteContainers(
   blobServiceClient: BlobServiceClient
 ): Promise<void> {
   // delete all containers
+  console.log('Deleting all containers...');
   for await (const container of blobServiceClient.listContainers()) {
     const containerClient = blobServiceClient.getContainerClient(
       container.name
