@@ -26,14 +26,10 @@ async function setup(): Promise<{
 // Return true if processing should stop (operation complete)
 async function fakeProcessor(page): Promise<boolean> {
   // Simulate a long-running operation on a page of results.
-  return new Promise(resolve =>
-    setTimeout(() => {
-      resolve(Math.random() < 0.5);
-      console.log(
-        `Processed page with ${page.containerItems.length} containers.`
-      );
-    }, 1000)
-  );
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  const shouldStop = Math.random() < 0.5;
+  console.log(`Processed page with ${page.containerItems.length} containers.`);
+  return shouldStop;
 }
 
 async function main(): Promise<void> {
@@ -46,7 +42,6 @@ async function main(): Promise<void> {
   let pageNumber = 1;
 
   try {
-
     let page = undefined;
     let continuationToken = undefined;
 

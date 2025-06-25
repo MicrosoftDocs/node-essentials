@@ -1,7 +1,6 @@
 import { BlobServiceClient, ContainerClient } from '@azure/storage-blob';
 import { DefaultAzureCredential } from '@azure/identity';
-import { deleteContainers } from './delete-containers.js';
-import { createContainers } from './create-containers.js';
+import { deleteContainers } from './delete-containers';
 import { v4 as uuidv4 } from 'uuid';
 import 'dotenv/config';
 
@@ -17,8 +16,11 @@ async function setup(): Promise<{
     new DefaultAzureCredential()
   );
 
-  const containers = await createContainers(blobServiceClient, 600);
-  const containerClient = blobServiceClient.getContainerClient(containers[0]);
+  const containerName = `container-${uuidv4()}`;
+
+  const containerClient = blobServiceClient.getContainerClient(containerName);
+  await containerClient.create();
+  console.log(`Created container: ${containerClient.containerName}`);
 
   const blobMax = 10;
 
@@ -34,64 +36,38 @@ async function setup(): Promise<{
 }
 
 async function main(): Promise<void> {
-  const { blobServiceClient } = await setup();
+  const { blobServiceClient, containerClient } = await setup();
 
-  // <Loop_over_data_at_specific_page>
-  // Navigate to the 5th page
-  const targetPage = 5;
-  let currentPage = 1;
-  let continuationToken: string | undefined;
+  const maxPageSize = 3;
 
-  console.log(`Navigating to page ${targetPage}...`);
+  // Create iterator
+  const iter = containerClient.listBlobsFlat().byPage({ maxPageSize });
+  let pageNumber = 1;
 
-  // Iterate through pages until we reach the target page
-  const iterator = blobServiceClient.listContainers().byPage();
+  const result = await iter.next();
+  if (result.done) {
+    throw new Error('Expected at least one page of results.');
+  }
 
-  while (currentPage < targetPage) {
-    const pageResult = await iterator.next();
-
-    if (pageResult.done) {
-      console.log(
-        `Only ${currentPage} pages available. Cannot reach page ${targetPage}.`
-      );
-      return;
-    }
-
-    continuationToken = pageResult.value.continuationToken;
-    const containerCount = pageResult.value.containerItems?.length || 0;
-    console.log(
-      `Skipped page ${currentPage} with ${containerCount} containers`
+  const continuationToken = result.value.continuationToken;
+  if (!continuationToken) {
+    throw new Error(
+      'Expected a continuation token from the blob service, but one was not returned.'
     );
-    currentPage++;
+  }
 
-    // If no continuation token, we've reached the end
-    if (!continuationToken && currentPage < targetPage) {
-      console.log(
-        `Only ${currentPage} pages available. Cannot reach page ${targetPage}.`
-      );
-      return;
+  // Continue with iterator
+  const resumed = containerClient
+    .listBlobsFlat()
+    .byPage({ continuationToken, maxPageSize });
+  pageNumber = 2;
+  for await (const page of resumed) {
+    console.log(`- Page ${pageNumber++}:`);
+    for (const blob of page.segment.blobItems) {
+      console.log(`  - ${blob.name}`);
     }
   }
 
-  // Get the 5th page
-  const fifthPageResult = await iterator.next();
-
-  if (fifthPageResult.done) {
-    console.log(`Page ${targetPage} not available.`);
-  } else {
-    const containerCount = fifthPageResult.value.containerItems?.length || 0;
-    console.log(
-      `\nPage ${targetPage} contents (${containerCount} containers):`
-    );
-    if (fifthPageResult.value.containerItems && containerCount > 0) {
-      for (const container of fifthPageResult.value.containerItems) {
-        console.log(`Container: ${container.name}`);
-      }
-    } else {
-      console.log('No containers found on this page');
-    }
-  }
-  // </Loop_over_data_at_specific_page>
   await deleteContainers(blobServiceClient);
 }
 
