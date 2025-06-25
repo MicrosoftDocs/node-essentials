@@ -13,7 +13,7 @@ async function setup(): Promise<{
 
   const blobServiceClient = new BlobServiceClient(
     `https://${accountName}.blob.core.windows.net`,
-    new DefaultAzureCredential()
+    new DefaultAzureCredential(),
   );
 
   const containerName = `container-${uuidv4()}`;
@@ -26,7 +26,7 @@ async function setup(): Promise<{
 
   for (let i = 0; i < blobMax; i++) {
     const blockBlobClient = containerClient.getBlockBlobClient(
-      `blob-${uuidv4()}`
+      `blob-${uuidv4()}`,
     );
     await blockBlobClient.upload('Hello world', 11);
     console.log(`Uploaded block blob: ${blockBlobClient.name}`);
@@ -52,7 +52,7 @@ async function main(): Promise<void> {
   const continuationToken = result.value.continuationToken;
   if (!continuationToken) {
     throw new Error(
-      'Expected a continuation token from the blob service, but one was not returned.'
+      'Expected a continuation token from the blob service, but one was not returned.',
     );
   }
 
@@ -73,7 +73,7 @@ async function main(): Promise<void> {
 
 main()
   .then(() => console.log('done'))
-  .catch(error => {
+  .catch((error) => {
     console.error(error);
     process.exit(1);
   });
