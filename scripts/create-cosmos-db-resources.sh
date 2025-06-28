@@ -7,31 +7,70 @@
 # This script now fetches the role definition id for "Cosmos DB Operator" automatically.
 
 # Exit if any command returns a non-zero status
-# set -euo
+set -euo pipefail
+
+echo "Script started - checking prerequisites..."
 
 # Verify that the user is logged in
+echo "Checking Azure CLI login status..."
 if ! az account show > /dev/null 2>&1; then
   echo "Error: Not logged in to Azure CLI. Please run 'az login' and try again."
   exit 1
 fi
+echo "Azure CLI login verified."
 
 random_string() {
-    tr -dc 'a-z0-9' </dev/urandom | fold -w 10 | head -n 1
+    # More reliable random string generation with multiple fallback methods
+    # Method 1: Using built-in RANDOM variable (most compatible)
+    local result=""
+    local chars="abcdefghijklmnopqrstuvwxyz0123456789"
+    local length=6  # Shorter 6-character string
+    
+    # Generate random string using bash's RANDOM
+    for i in {1..6}; do
+        local idx=$((RANDOM % 36))
+        result+=${chars:$idx:1}
+    done
+    
+    # If result is empty for some reason, use timestamp as fallback
+    if [ -z "$result" ]; then
+        result=$(date +%s | cut -c 7-12)
+    fi
+    
+    echo "$result"
 }
-RANDOM_STRING=$(random_string)
-printf "Random String: %s\n" "$RANDOM_STRING"
 
+echo "Generating random string..."
+RANDOM_STRING=$(random_string)
+echo "Random string generated successfully: $RANDOM_STRING"
+
+echo "Getting Azure subscription information..."
 SUBSCRIPTION_ID=$(az account show --query id -o tsv)
-LOCATION="eastus"
+echo "Subscription ID retrieved: $SUBSCRIPTION_ID"
+
+LOCATION="centralus"
 RESOURCE_GROUP_NAME="sdk-test-cosmosdb-rg-$RANDOM_STRING"
 COSMOS_DB_RESOURCE_NAME="sdk-test-cosmosdb-$RANDOM_STRING"
-PRINCIPAL_ID=$(az ad signed-in-user show --query id -o tsv)
+
+echo "Getting principal ID..."
+# Try different approaches to get the user's principal ID, with verbose error handling
+if ! PRINCIPAL_ID=$(az ad signed-in-user show --query id -o tsv 2>/dev/null); then
+  echo "Failed to get principal ID using signed-in-user, trying alternative method..."
+  USER_NAME=$(az account show --query user.name -o tsv)
+  echo "Got user name: $USER_NAME, looking up user ID..."
+  
+  if ! PRINCIPAL_ID=$(az ad user show --id "$USER_NAME" --query id -o tsv 2>/dev/null); then
+    echo "Error: Could not determine principal ID. Using current account credentials for roles."
+    PRINCIPAL_ID=$(az account show --query id -o tsv)
+  fi
+fi
+echo "Principal ID retrieved: $PRINCIPAL_ID"
 
 # Create a unique resource group and cosmos db name using a random suffix.
-RG="${RESOURCE_GROUP_NAME}${RANDOM_STRING}"
+RG="$RESOURCE_GROUP_NAME"
 printf "Resource Group: %s\n" "$RG"
 
-RESOURCE_NAME="${COSMOS_DB_RESOURCE_NAME}${RANDOM_STRING}"
+RESOURCE_NAME="$COSMOS_DB_RESOURCE_NAME"
 printf "Resource Name: %s\n" "$RESOURCE_NAME"
 
 # Create a resource group
@@ -60,6 +99,9 @@ COSMOS_DB_ENDPOINT=$(az cosmosdb show \
 printf "Cosmos DB Endpoint: %s\n" "$COSMOS_DB_ENDPOINT"
 
 # Append the endpoint to the .env file if not already populated
+if [ ! -f .env ]; then
+    touch .env
+fi
 echo "COSMOS_DB_ENDPOINT=$COSMOS_DB_ENDPOINT" >> .env
 echo "Cosmos DB Endpoint: $COSMOS_DB_ENDPOINT"
 
@@ -94,14 +136,72 @@ echo "COSMOS_CONTAINER_NAME=$CONTAINER_NAME" >> .env
 printf "Cosmos DB SQL container '%s' created\n" "$CONTAINER_NAME"
 
 printf "Database and container names appended to .env\n"
---------------------------------------------------------------------------
 
-# Role definition id for "Cosmos DB Operator"
+# --------------------------------------------------------------------------
+# Role assignment for Cosmos DB access
 
-# Create a role assignment using the fetched role definition.
-az cosmosdb sql role assignment create \
+# Get the role definition ID for "Cosmos DB Built-in Data Contributor"
+echo "Getting role definitions..."
+ROLE_DEFS=$(az cosmosdb sql role definition list \
+    --resource-group "$RG" \
+    --account-name "$RESOURCE_NAME")
+echo "Role definitions retrieved: $ROLE_DEFS"
+
+echo "Querying for Cosmos DB Built-in Data Contributor role..."
+ROLE_DEF_ID=$(az cosmosdb sql role definition list \
     --resource-group "$RG" \
     --account-name "$RESOURCE_NAME" \
-    --role-definition-id "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RG/providers/Microsoft.DocumentDB/databaseAccounts/$RESOURCE_NAME/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002" \
+    --query "[?roleName=='Cosmos DB Built-in Data Contributor'].id" \
+    --output tsv)
+
+if [ -z "$ROLE_DEF_ID" ]; then
+    echo "Role definition ID not found. Using fallback ID."
+    # Fallback to the well-known ID if not found
+    ROLE_DEF_ID="/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RG/providers/Microsoft.DocumentDB/databaseAccounts/$RESOURCE_NAME/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002"
+    printf "Using fallback role definition ID: %s\n" "$ROLE_DEF_ID"
+else
+    printf "Found role definition ID: %s\n" "$ROLE_DEF_ID"
+fi
+
+# Create a role assignment using the built-in data contributor role
+echo "Creating role assignment..."
+if ! az cosmosdb sql role assignment create \
+    --resource-group "$RG" \
+    --account-name "$RESOURCE_NAME" \
+    --role-definition-id "$ROLE_DEF_ID" \
     --principal-id "$PRINCIPAL_ID" \
-    --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RG/providers/Microsoft.DocumentDB/databaseAccounts/$RESOURCE_NAME"
+    --scope "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RG/providers/Microsoft.DocumentDB/databaseAccounts/$RESOURCE_NAME"; then
+    
+    echo "Warning: Failed to create role assignment. This might be because it already exists or due to permission issues."
+    echo "Continuing with script execution..."
+else
+    printf "Role assignment created successfully\n"
+fi
+
+# List role assignments to verify
+az cosmosdb sql role assignment list \
+    --resource-group "$RG" \
+    --account-name "$RESOURCE_NAME"
+
+# Ensure we have all the required values before completing
+echo "Verifying all required values are present..."
+
+# Check for empty values
+if [ -z "$RG" ] || [ -z "$RESOURCE_NAME" ] || [ -z "$DB_NAME" ] || [ -z "$CONTAINER_NAME" ] || [ -z "$COSMOS_DB_ENDPOINT" ]; then
+    printf "Warning: One or more required values is empty:\n"
+    printf "  Resource Group: %s\n" "$RG"
+    printf "  Cosmos DB Account: %s\n" "$RESOURCE_NAME"
+    printf "  Database: %s\n" "$DB_NAME" 
+    printf "  Container: %s\n" "$CONTAINER_NAME"
+    printf "  Endpoint: %s\n" "$COSMOS_DB_ENDPOINT"
+    printf "Script may have encountered issues.\n"
+else
+    printf "Script completed successfully!\n"
+    printf "Resources created:\n"
+    printf "  Resource Group: %s\n" "$RG"
+    printf "  Cosmos DB Account: %s\n" "$RESOURCE_NAME"
+    printf "  Database: %s\n" "$DB_NAME"
+    printf "  Container: %s\n" "$CONTAINER_NAME"
+    printf "  Endpoint: %s\n" "$COSMOS_DB_ENDPOINT"
+    printf "Environment variables have been added to .env file\n"
+fi

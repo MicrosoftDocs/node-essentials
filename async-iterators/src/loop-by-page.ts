@@ -19,24 +19,28 @@ async function main(): Promise<void> {
     console.log(`Created container: ${name}`);
   }
 
-  const maxPageSize = 3;
-  // The iterator also supports iteration by page with a configurable (and optional) `maxPageSize` setting.
-  for await (const response of blobServiceClient.listContainers().byPage({
-    maxPageSize,
-  })) {
-    if (response.containerItems) {
-      for (const container of response.containerItems) {
+  // <Loop_over_data_by_page>
+  const firstPage = await blobServiceClient.listContainers().byPage().next();
+
+  const continuationToken = firstPage.value.continuationToken;
+
+  // The iterator also supports iteration by page.
+  for await (const page of blobServiceClient
+    .listContainers()
+    .byPage({ continuationToken })) {
+    if (page.containerItems) {
+      for (const container of page.containerItems) {
         console.log(`Container: ${container.name}`);
       }
     }
   }
-
+  // </Loop_over_data_by_page>
   await deleteContainers(blobServiceClient);
 }
 
 main()
   .then(() => console.log('done'))
-  .catch((error) => {
+  .catch(error => {
     console.error(error);
     process.exit(1);
   });
