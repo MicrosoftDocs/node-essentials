@@ -18,7 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "@azure/cosmos": "^4.1.0",
-    "@azure/identity": "^4.4.1",
+    "@azure/identity": "^4.13.2",
     "dotenv": "^16.4.5"
   },
   "devDependencies": {
