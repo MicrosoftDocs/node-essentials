@@ -15,7 +15,7 @@ export async function insertDocument(
   const isVerified: boolean = inputVerified(doc);
 
   if (!isVerified) {
-    return { message: 'Verification failed' } as VerificationErrors;
+    return { message: 'Verification failed' };
   }
 
   try {
@@ -31,11 +31,11 @@ export async function insertDocument(
         return {
           message: 'Insertion failed: Duplicate entry',
           code: 409,
-        } as DbError;
+        };
       }
-      return { message: error.message, code: (error as any).code } as DbError;
+      return { message: error.message, code: (error as any).code };
     } else {
-      return { message: 'An unknown error occurred', code: 500 } as DbError;
+      return { message: 'An unknown error occurred', code: 500 };
     }
   }
 }

@@ -29,6 +29,8 @@ And if you need to learn or improve your JavaScript skills, take a look at the [
 
 Because learning is a never-ending journey, we want to help you as much as we can to get you ready for what's coming next. You'll find here a great collection of resources you can use to build your knowledge.
 
+- ✅ **[How to Test Azure SDK Integration in JavaScript Applications](https://learn.microsoft.com/en-us/azure/developer/javascript/sdk/test-sdk-integration?tabs=test-with-node-testrunner)** — Learn testing best practices with Jest, Vitest, and Node.js test runner. Use `.github/test/refresh-and-validate.sh` for an end-to-end refresh plus verification run, or `.github/test/validate-all-frameworks.sh` to run the framework tests only.
+
 - ✅ **[Build a Node.js app for Azure Cosmos DB in Visual Studio Code](https://docs.microsoft.com/learn/modules/build-node-cosmos-app-vscode/?WT.mc_id=javascript-111027-gllemos)**
 
 - ✅ **[Automate Node.js deployments with Azure Pipelines](https://docs.microsoft.com/learn/modules/deploy-nodejs/?WT.mc_id=javascript-111027-gllemos)**
@@ -42,6 +44,14 @@ Because learning is a never-ending journey, we want to help you as much as we ca
 - ✅ **[Quickstart: Create an image classification project with the Custom Vision client library](https://docs.microsoft.com/azure/cognitive-services/custom-vision-service/quickstarts/image-classification?WT.mc_id=javascript-111027-gllemos)**
 
 - ✅ **[Create a bot with the Bot Framework SDK for JavaScript](https://docs.microsoft.com/azure/bot-service/javascript/bot-builder-javascript-quickstart?WT.mc_id=javascript-111027-gllemos)**
+
+## 🧪 Testing Utilities
+
+Use the scripts in `.github/test/` to maintain the three test sample workspaces:
+
+- `bash .github/test/install.sh` — Validates each sample `package.json`, refreshes workspace dependencies to the latest compatible versions, rewrites the sample manifests from the workspace lockfile, and removes transient `package.old.json` backups after success.
+- `bash .github/test/validate-all-frameworks.sh` — Installs, builds when needed, and tests the Node.js test runner, Jest, and Vitest samples.
+- `bash .github/test/refresh-and-validate.sh` — Runs `install.sh` first and then `validate-all-frameworks.sh` for a single refresh-plus-verification workflow.
 
 ## 💻 Contributing
 
