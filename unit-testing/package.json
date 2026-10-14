@@ -18,9 +18,9 @@
   "license": "ISC",
   "dependencies": {
     "@azure/cosmos": "^4.1.0",
-    "@azure/identity": "^4.4.1",
+    "@azure/identity": "^4.13.1",
     "dotenv": "^16.4.5",
-    "uuid": "^10.0.0"
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
