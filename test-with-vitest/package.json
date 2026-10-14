@@ -25,11 +25,11 @@
     "eslint": "^8.56.0",
     "prettier": "^3.2.4",
     "typescript": "^5.5.4",
-    "vitest": "^3.0.8"
+    "vitest": "^3.2.6"
   },
   "dependencies": {
     "@azure/cosmos": "^4.1.0",
-    "@azure/identity": "^4.4.1",
+    "@azure/identity": "^4.13.2",
     "dotenv": "^16.4.5"
   }
 }
